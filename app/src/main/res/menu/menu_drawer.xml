@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/dashboard"
+        android:enabled="true"
+        android:icon="@drawable/dashboard"
+        android:title="Dashboard"
+
+        />
+    <item
+        android:title="Transactions"
+        android:id="@+id/transaction"
+        android:icon="@drawable/ic_library_books_black_24dp"
+        />
+    <item
+        android:title="My Profile"
+        android:id="@+id/profile"
+        android:icon="@drawable/profile"
+        />
+    <item
+        android:title="More"
+        android:id="@+id/more"
+        android:icon="@drawable/more"
+        />
+
+</menu>

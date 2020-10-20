@@ -1,0 +1,87 @@
+<resources>
+    <string name="app_name">BOC Mobile Banking</string>
+    <string name="add_bene_btn">Add Beneficieries</string>
+    <string name="add_third_party_boc">Third Party BOC Account Payment</string>
+    <string name="other_bank_acc_payment">Other Bank Account Payment</string>
+    <string name="other_bank_acc_confirm">Other Bank Account Payment Confirm</string>
+    <string name="other_bank_crdt_payment">Other Bank Credit Card Payment</string>
+    <string name="other_bank_crdt_confirm">Other Bank Credit Card Payment Confirm</string>
+    <string name="bill_payments">Bill Payments</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="open">Open navigation drawer</string>
+    <string name="close">close navigation drawer</string>
+    <string name="third_party_account">Third Party BOC Payment Confirm</string>
+    <string name="transaction_page_title">Transactions</string>
+
+    <string-array name="planets_array">
+        <item>Select</item>
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
+
+    <!-- Third Party Transaction String Values -->
+    <string name="third_party_main">"Third Party BOC Account Transfer"</string>
+    <string name="transfer_btn">"Transfer"</string>
+    <string name="desc">"Description"</string>
+    <string name="amount">"Amount(LKR)"</string>
+    <string name="source">"Source"</string>
+    <string name="pay">"Pay"</string>
+    <string name="confirm_transaction">"Third Party BOC Account Transfer Confirm"</string>
+    <string name="confirm">"Confirm"</string>
+    <string name="done">"DONE"</string>
+    <string name="confirm_msg_title">"Transaction Completed!"</string>
+    <string name="confirm_msg">"Your Transaction was completed successfully!"</string>
+    <!-- end -->
+
+    <string-array name="biller_category">
+        <item>Select</item>
+        <item>Electricity</item>
+        <item>Telephone</item>
+        <item>Water</item>
+        <item>Insurance</item>
+        <item>Television</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="customer">
+        <item>Select</item>
+        <item>H.S.D.N Gunasekara</item>
+    </string-array>
+
+    <string-array name="customerIsuru">
+        <item>Select</item>
+        <item>L.G.I Sathsara</item>
+    </string-array>
+
+    <string-array name="payTo">
+        <item>Select</item>
+        <item>60911023</item>
+        <item>200500644</item>
+    </string-array>
+
+    <string-array name="billerType">
+        <item>Select</item>
+        <item>Registered</item>
+        <item>Unregistered</item>
+    </string-array>
+
+    <string-array name="pMethod">
+        <item>Select</item>
+        <item>Online</item>
+    </string-array>
+
+</resources>
