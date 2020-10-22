@@ -11,9 +11,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.google.android.material.navigation.NavigationView;
 
 /*
 import com.google.firebase.database.DataSnapshot;
@@ -37,6 +41,10 @@ public class OtherBankCreditConfirm extends AppCompatActivity {
     int balance;
     String from,to,method,pamount,des;
 
+    private DrawerLayout drawer;
+    private ActionBarDrawerToggle drawerToggle;
+    private NavigationView navigationView;
+
 
     //Database
     //DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
@@ -59,6 +67,43 @@ public class OtherBankCreditConfirm extends AppCompatActivity {
 
         // Buttons
         confirmBtn = (Button) findViewById(R.id.obcp_prcd_btn);
+
+        navigationView = findViewById(R.id.drawerNavigation);
+
+        drawer = findViewById(R.id.drawer);
+        drawerToggle = new ActionBarDrawerToggle(this,drawer, R.string.open, R.string.close);
+        drawer.addDrawerListener(drawerToggle);
+        drawerToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                int id = item.getItemId();
+
+                if(id == R.id.dashboard){
+                    Intent i = new Intent(OtherBankCreditConfirm.this,dashboard.class);
+                    startActivity(i);
+                    drawer.closeDrawers();
+
+                }else if(id == R.id.transaction){
+                    drawer.closeDrawers();
+                }
+                else if(id == R.id.profile){
+                    Toast.makeText(OtherBankCreditConfirm.this,"Profile Selected", Toast.LENGTH_SHORT).show();
+                    //startActivity(new Intent(MainActivity.this, myprofile.class));
+                    drawer.closeDrawers();
+                }
+
+                else if(id == R.id.more){
+                    Intent i = new Intent(OtherBankCreditConfirm.this,moreActivityFunction.class);
+                    startActivity(i);
+                    drawer.closeDrawers();
+                }
+                return true;
+            }
+        });
 
         // show detail fields
         amountDetails = (TextView) findViewById(R.id.obcp_amount_detail);
@@ -199,18 +244,48 @@ public class OtherBankCreditConfirm extends AppCompatActivity {
     }
 
     // set logout function
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.logout:
 
-                // implement function here
-                Toast.makeText(this, "Logout selected", Toast.LENGTH_LONG).show();
-                return true;
+        int id = item.getItemId();
 
-            default:
-                return super.onOptionsItemSelected(item);
+
+        if (id == R.id.logout) {
+
+            AlertDialog.Builder alert = new AlertDialog.Builder(OtherBankCreditConfirm.this);
+
+            alert.setTitle("Logout");
+            alert.setIcon(R.drawable.ic_warning);
+            alert.setMessage("You are about to logout. Please confirm");
+            alert.setPositiveButton("Logout", null);
+            alert.setNegativeButton("Cancel", null);
+
+            AlertDialog dialog = alert.create();
+            dialog.show();
+            dialog.getWindow().setBackgroundDrawableResource(R.drawable.alert_design);
+
+
+            // this will change the default behaviour of buttons
+            Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            positiveButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    // redirect to dashboard
+                    Intent i = new Intent(OtherBankCreditConfirm.this, Login.class);
+                    //i.putExtra("uname",uname);
+                    startActivity(i);
+                    finish();
+                }
+            });
+
         }
+
+        if (drawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+
     }
 
 

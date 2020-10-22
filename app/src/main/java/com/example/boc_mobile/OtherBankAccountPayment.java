@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -108,20 +109,47 @@ public class OtherBankAccountPayment extends AppCompatActivity {
     }
 
     // set logout function
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.logout:
 
-                // implement function here
-                //Toast.makeText(this, "Logout selected", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(this, Login.class);
-                startActivity(intent);
-                return true;
+        int id = item.getItemId();
 
-            default:
-                return super.onOptionsItemSelected(item);
+
+        if (id == R.id.logout) {
+
+            AlertDialog.Builder alert = new AlertDialog.Builder(OtherBankAccountPayment.this);
+
+            alert.setTitle("Logout");
+            alert.setIcon(R.drawable.ic_warning);
+            alert.setMessage("You are about to logout. Please confirm");
+            alert.setPositiveButton("Logout", null);
+            alert.setNegativeButton("Cancel", null);
+
+            AlertDialog dialog = alert.create();
+            dialog.show();
+            dialog.getWindow().setBackgroundDrawableResource(R.drawable.alert_design);
+
+
+            // this will change the default behaviour of buttons
+            Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            positiveButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    // redirect to dashboard
+                    Intent i = new Intent(OtherBankAccountPayment.this,Login.class);
+                    //i.putExtra("uname",uname);
+                    startActivity(i);
+                    finish();
+                }
+            });
+
         }
+
+        if (drawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
 

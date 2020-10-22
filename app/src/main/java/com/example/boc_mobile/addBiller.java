@@ -75,7 +75,7 @@ public class addBiller extends AppCompatActivity{
 
         navigationView = findViewById(R.id.drawerNavigation);
         //change the topbar title
-        getSupportActionBar().setTitle("Add Biller");
+        getSupportActionBar().setTitle("BOC Mobile Banking - Add Biller");
 
 
         //for side drawer
@@ -158,8 +158,32 @@ public class addBiller extends AppCompatActivity{
 
 
         if (id == R.id.logout) {
-            startActivity(new Intent(addBiller.this, Login.class));
-            finish();
+            AlertDialog.Builder alert = new AlertDialog.Builder(addBiller.this);
+
+            alert.setTitle("Logout");
+            alert.setIcon(R.drawable.ic_warning);
+            alert.setMessage("You are about to logout. Please confirm");
+            alert.setPositiveButton("Logout", null);
+            alert.setNegativeButton("Cancel", null);
+
+            AlertDialog dialog = alert.create();
+            dialog.show();
+            dialog.getWindow().setBackgroundDrawableResource(R.drawable.alert_design);
+
+
+            // this will change the default behaviour of buttons
+            Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            positiveButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    // redirect to dashboard
+                    Intent i = new Intent(addBiller.this,Login.class);
+                    //i.putExtra("uname",uname);
+                    startActivity(i);
+                    finish();
+                }
+            });
         }
 
         if (drawerToggle.onOptionsItemSelected(item)) {

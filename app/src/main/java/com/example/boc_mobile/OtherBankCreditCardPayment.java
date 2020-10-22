@@ -11,10 +11,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.google.android.material.navigation.NavigationView;
 
 
 //public class OtherBankCreditCardPayment extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -28,6 +34,10 @@ public class OtherBankCreditCardPayment extends AppCompatActivity {
     int check = 0;
     String from,to,method,pamount,des;
 
+    private ActionBarDrawerToggle drawerToggle;
+    private DrawerLayout drawer;
+    private NavigationView navigationView;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
 
@@ -40,6 +50,8 @@ public class OtherBankCreditCardPayment extends AppCompatActivity {
 
         // Buttons
         continueButton = (Button) findViewById(R.id.obcp_cont_btn);
+
+        navigationView = findViewById(R.id.drawerNavigation);
 
         // input fields
         payFrom = findViewById(R.id.obcp_payFrom_spinner);
@@ -64,6 +76,40 @@ public class OtherBankCreditCardPayment extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 gotoConfirm();
+            }
+        });
+
+        drawer = findViewById(R.id.drawer);
+        drawerToggle = new ActionBarDrawerToggle(this,drawer, R.string.open, R.string.close);
+        drawer.addDrawerListener(drawerToggle);
+        drawerToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                int id = item.getItemId();
+
+                if(id == R.id.dashboard){
+                    Intent i = new Intent(OtherBankCreditCardPayment.this,dashboard.class);
+                    startActivity(i);
+                    drawer.closeDrawers();
+
+                }else if(id == R.id.transaction){
+                    drawer.closeDrawers();
+                }
+                else if(id == R.id.profile){
+                    Toast.makeText(OtherBankCreditCardPayment.this,"Profile Selected", Toast.LENGTH_SHORT).show();
+                    //startActivity(new Intent(MainActivity.this, myprofile.class));
+                    drawer.closeDrawers();
+                }
+
+                else if(id == R.id.more){
+                    Intent i = new Intent(OtherBankCreditCardPayment.this,moreActivityFunction.class);
+                    startActivity(i);
+                    drawer.closeDrawers();
+                }
+                return true;
             }
         });
 
@@ -122,20 +168,47 @@ public class OtherBankCreditCardPayment extends AppCompatActivity {
     }
 
     // set logout function
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.logout:
 
-                // implement function here
-                //Toast.makeText(this, "Logout selected", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(this, Login.class);
-                startActivity(intent);
-                return true;
+        int id = item.getItemId();
 
-            default:
-                return super.onOptionsItemSelected(item);
+
+        if (id == R.id.logout) {
+
+            AlertDialog.Builder alert = new AlertDialog.Builder(OtherBankCreditCardPayment.this);
+
+            alert.setTitle("Logout");
+            alert.setIcon(R.drawable.ic_warning);
+            alert.setMessage("You are about to logout. Please confirm");
+            alert.setPositiveButton("Logout", null);
+            alert.setNegativeButton("Cancel", null);
+
+            AlertDialog dialog = alert.create();
+            dialog.show();
+            dialog.getWindow().setBackgroundDrawableResource(R.drawable.alert_design);
+
+
+            // this will change the default behaviour of buttons
+            Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            positiveButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    // redirect to dashboard
+                    Intent i = new Intent(OtherBankCreditCardPayment.this,Login.class);
+                    //i.putExtra("uname",uname);
+                    startActivity(i);
+                    finish();
+                }
+            });
+
         }
+
+        if (drawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 

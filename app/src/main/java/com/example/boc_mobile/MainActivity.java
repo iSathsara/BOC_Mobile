@@ -1,6 +1,7 @@
 package com.example.boc_mobile;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -161,7 +162,34 @@ public class MainActivity extends AppCompatActivity {
 
 
         if (id == R.id.logout) {
-            startActivity(new Intent(MainActivity.this, Login.class));
+
+            AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
+
+            alert.setTitle("Logout");
+            alert.setIcon(R.drawable.ic_warning);
+            alert.setMessage("You are about to logout. Please confirm");
+            alert.setPositiveButton("Logout", null);
+            alert.setNegativeButton("Cancel", null);
+
+            AlertDialog dialog = alert.create();
+            dialog.show();
+            dialog.getWindow().setBackgroundDrawableResource(R.drawable.alert_design);
+
+
+            // this will change the default behaviour of buttons
+            Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            positiveButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    // redirect to dashboard
+                    Intent i = new Intent(MainActivity.this,Login.class);
+                    //i.putExtra("uname",uname);
+                    startActivity(i);
+                    finish();
+                }
+            });
+
         }
 
         if (drawerToggle.onOptionsItemSelected(item)) {
