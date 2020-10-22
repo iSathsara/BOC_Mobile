@@ -15,48 +15,61 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+/*
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+*/
+
 
 public class OtherBankCreditConfirm extends AppCompatActivity {
 
-    private Button confirmBtn;
-    //private Button cancelBtn;
+
     String uname;
     String amount;
-    TextView amountDetails,To,From,Method,Description;
+
+    private Button confirmBtn;
+    private TextView amountDetails,To,From,Method,Description;
+
     int balance;
     String from,to,method,pamount,des;
 
 
     //Database
-    DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+    //DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_other_bank_credit_confirm);
+        //Toolbar trans_toolbar = findViewById(R.id.toolbar);
+        getSupportActionBar().setTitle("BOC Mobile Banking - Transactions");
+
+        //uname =  getIntent().getStringExtra("accountNo");
+        //from = getIntent().getStringExtra("from");
+        //to= getIntent().getStringExtra("to");
+        //method = getIntent().getStringExtra("method");
+        //pamount = getIntent().getStringExtra("amount");
+        //des = getIntent().getStringExtra("description");
+
+
+        // Buttons
+        confirmBtn = (Button) findViewById(R.id.obcp_prcd_btn);
+
+        // show detail fields
+        amountDetails = (TextView) findViewById(R.id.obcp_amount_detail);
+        To = (TextView) findViewById(R.id.obcp_payto_detail);
+        From = (TextView) findViewById(R.id.obcp_payfrom_detail);
+        Method = (TextView) findViewById(R.id.obcp_method_detail);
+        Description = (TextView) findViewById(R.id.obcp_desc_detail);
 
 
 
-        uname =  getIntent().getStringExtra("accountNo");
-        from = getIntent().getStringExtra("from");
-        to= getIntent().getStringExtra("to");
-        method = getIntent().getStringExtra("method");
-        pamount = getIntent().getStringExtra("amount");
-        des = getIntent().getStringExtra("description");
-
-        // setting up toolbar
-        Toolbar trans_toolbar = findViewById(R.id.toolbar);
-       // setSupportActionBar(trans_toolbar);
-        getSupportActionBar().setTitle("Transactions");
-
-        confirmBtn = findViewById(R.id.obcp_prcd_btn);
-        //cancelBtn = findViewById(R.id.obcp_prcd_cancel_btn);
-        amountDetails = findViewById(R.id.obcp_amount_detail);
+   /*
         amountDetails.setText(pamount);
         amount = amountDetails.getText().toString();
 
@@ -69,7 +82,7 @@ public class OtherBankCreditConfirm extends AppCompatActivity {
         Description = findViewById(R.id.obcp_desc_detail);
         Description.setText(des);
 
-
+    */
 
         /*cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +97,7 @@ public class OtherBankCreditConfirm extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+        /*
                 Query query = dbRef.child("User").orderByChild("uname").equalTo(uname);
 
                 query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -116,13 +130,16 @@ public class OtherBankCreditConfirm extends AppCompatActivity {
 
                     }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                    }
+                    //@Override
+                    //public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    //}
+
+
                 });
 
-
+        */
 
                 AlertDialog.Builder alert = new AlertDialog.Builder(OtherBankCreditConfirm.this);
 
@@ -136,21 +153,22 @@ public class OtherBankCreditConfirm extends AppCompatActivity {
                 dialog.show();
                 dialog.getWindow().setBackgroundDrawableResource(R.drawable.alert_design);
 
+
                 // this will change the default behaviour of buttons
                 Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
-
                 positiveButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
                         // redirect to dashboard
                         Intent i = new Intent(OtherBankCreditConfirm.this,dashboard.class);
-                        i.putExtra("uname",uname);
+                        //i.putExtra("uname",uname);
                         startActivity(i);
                     }
                 });
 
                 // this will change the default behaviour of buttons
+
                 Button negativeButton = dialog.getButton(AlertDialog.BUTTON_NEGATIVE);
                 negativeButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -169,12 +187,6 @@ public class OtherBankCreditConfirm extends AppCompatActivity {
     // intent for launch other transaction
     private void launchOtherTransaction(){
         Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
-
-    // intent for back to form
-    private void goBack(){
-        Intent intent = new Intent(this, OtherBankCreditCardPayment.class);
         startActivity(intent);
     }
 

@@ -11,14 +11,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
+
+/*
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+*/
 
 public class addBiller2 extends AppCompatActivity {
 
@@ -34,7 +38,7 @@ public class addBiller2 extends AppCompatActivity {
     Button cancelPopup;
 
     //Database
-    DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("Biller");
+    //DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("Biller");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +98,22 @@ public class addBiller2 extends AppCompatActivity {
                 int id = item.getItemId();
 
                 if(id == R.id.dashboard){
+                    Intent i = new Intent(addBiller2.this,dashboard.class);
+                    startActivity(i);
+                    drawer.closeDrawers();
 
+                }else if(id == R.id.transaction){
+                    drawer.closeDrawers();
+                }
+                else if(id == R.id.profile){
+                    Toast.makeText(addBiller2.this,"Profile Selected", Toast.LENGTH_SHORT).show();
+                    //startActivity(new Intent(MainActivity.this, myprofile.class));
+                    drawer.closeDrawers();
+                }
+
+                else if(id == R.id.more){
+                    Intent i = new Intent(addBiller2.this,moreActivityFunction.class);
+                    startActivity(i);
                     drawer.closeDrawers();
                 }
                 return true;
@@ -126,11 +145,9 @@ public class addBiller2 extends AppCompatActivity {
         int id = item.getItemId();
 
 
-        if (id == R.id.help) {
-
-
-            //Toast.makeText(dashboard.this, "Action clicked", Toast.LENGTH_LONG).show();
-
+        if (id == R.id.logout) {
+            startActivity(new Intent(addBiller2.this, Login.class));
+            finish();
         }
 
         if (drawerToggle.onOptionsItemSelected(item)) {
@@ -146,6 +163,7 @@ public void cancelOnClick(View view){
         finish();
 }
 
+/*
 public void confirmButtonClick(View view){
 
     Biller biller = new Biller();
@@ -162,5 +180,6 @@ public void confirmButtonClick(View view){
     popup.show();
 
 }
+*/
 
 }

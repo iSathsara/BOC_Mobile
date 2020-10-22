@@ -15,30 +15,33 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
+/*
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
+*/
 
 public class dashboard extends AppCompatActivity {
 
     private DrawerLayout drawer;
     private ActionBarDrawerToggle drawerToggle;
-    NavigationView navigationView;
+    private NavigationView navigationView;
     Button creditCard;
     TextView myAcc;
     String uname,name,accNo,balance;
     TextView bal,acc,branch,Name;
 
     //Database
-    DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+   // DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+        getSupportActionBar().setTitle("BOC Mobile Banking - Dashboard");
 
        // Toast.makeText(this, uname, Toast.LENGTH_LONG).show();
         bal = findViewById(R.id.accNo);
@@ -47,8 +50,7 @@ public class dashboard extends AppCompatActivity {
 
         creditCard = findViewById(R.id.creditCard);
         navigationView = findViewById(R.id.drawerNavigation);
-        //change the topbar title
-        getSupportActionBar().setTitle("Dashboard");
+
 
 
         //for side drawer
@@ -63,8 +65,8 @@ public class dashboard extends AppCompatActivity {
 
 
         //-------get name---------------------
-        uname = getIntent().getStringExtra("uname");
-
+        //uname = getIntent().getStringExtra("uname");
+        /*
         Query query = dbRef.child("User").orderByChild("uname").equalTo(uname);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -90,7 +92,7 @@ public class dashboard extends AppCompatActivity {
 
             }
         });
-
+        */
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -98,12 +100,12 @@ public class dashboard extends AppCompatActivity {
                 int id = item.getItemId();
 
                 if(id == R.id.dashboard){
-
                    drawer.closeDrawers();
+
                 }else if(id == R.id.transaction){
 
                     Intent i = new Intent(dashboard.this,MainActivity.class);
-                    i.putExtra("accountNo",uname);
+                    //i.putExtra("accountNo",uname);
                     startActivity(i);
 
                 }

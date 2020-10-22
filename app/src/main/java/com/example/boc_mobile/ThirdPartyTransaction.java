@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -24,10 +25,10 @@ import com.google.android.material.navigation.NavigationView;
 
 public class ThirdPartyTransaction extends AppCompatActivity {
 
-    Button transfer;
-    EditText pay,source,amount,desc;
-    int childCount;
-    String descTxt;
+    private Button continueBtn;
+    private EditText amount,desc;
+    private Spinner payTo,payFrom;
+
 
 
     private DrawerLayout drawer;
@@ -40,17 +41,20 @@ public class ThirdPartyTransaction extends AppCompatActivity {
         setContentView(R.layout.activity_third_party_account_payment);
 
         // setting up toolbar
-        Toolbar trans_toolbar = findViewById(R.id.toolbar);
-        getSupportActionBar().setTitle("Transactions");
+        //Toolbar trans_toolbar = findViewById(R.id.toolbar);
+        getSupportActionBar().setTitle("BOC Mobile Banking - Transactions");
 
-        //get input data
-        pay  = findViewById(R.id.pay_txt);
-        source = findViewById(R.id.source_txt);
-        amount = findViewById(R.id.amount_txt);
-        desc = findViewById(R.id.desc_test);
-        descTxt=desc.toString();
 
-        transfer = findViewById(R.id.tp_cont_btn);
+        // buttons
+        continueBtn = findViewById(R.id.tp_cont_btn);
+
+        // form fields
+        payTo = findViewById(R.id.tp_payTo_spinner);
+        payFrom = findViewById(R.id.tp_payFrom_spinner);
+        amount = findViewById(R.id.tp_amount_editText);
+        desc = findViewById(R.id.tp_desc_editText);
+
+
 
         navigationView = findViewById(R.id.drawerNavigation);
 
@@ -90,32 +94,17 @@ public class ThirdPartyTransaction extends AppCompatActivity {
             }
         });
 
-        transfer.setOnClickListener(new View.OnClickListener() {
+        // continue button click
+        continueBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-
-                if(TextUtils.isEmpty(desc.getText())){
-                    descTxt = "No Notes..!";
-                }
-
-                if(TextUtils.isEmpty(pay.getText())){
-                   // Toast.makeText(ThirdPartyTransaction.this, "All fields required...", Toast.LENGTH_LONG).show();
-                    pay.setError( "Pay field is required!" );
-                }
-                else if(TextUtils.isEmpty(source.getText())) {
-                    source.setError( "Source field is required!" );
-                }
-                else if(TextUtils.isEmpty(amount.getText())){
+                if(TextUtils.isEmpty(amount.getText())){
                     amount.setError( "Amount field is required!" );
                 }
                 else {
                     //intent
                     Intent intent = new Intent(getBaseContext(), confirmThirdPatyTransaction.class);
-                    intent.putExtra("pay", pay.getText().toString().trim());
-                    intent.putExtra("source", source.getText().toString().trim());
-                    intent.putExtra("amount", amount.getText().toString().trim());
-                    intent.putExtra("desc", descTxt);
                     startActivity(intent);
                 }
             }

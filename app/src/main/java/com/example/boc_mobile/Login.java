@@ -8,8 +8,8 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+//import com.google.firebase.database.DatabaseReference;
+//import com.google.firebase.database.FirebaseDatabase;
 
 
 public class Login extends AppCompatActivity {
@@ -17,8 +17,9 @@ public class Login extends AppCompatActivity {
     private Button loginbtn;
     EditText username;
     String uname;
+
     //database
-    DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+    //DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +40,9 @@ public class Login extends AppCompatActivity {
 
     }
     private void MainMenu(){
-        uname = username.getText().toString();
+        //uname = username.getText().toString();
         Intent intent = new Intent(this, dashboard.class);
-        intent.putExtra("uname",uname);
+        //intent.putExtra("uname",uname);
         startActivity(intent);
     }
 

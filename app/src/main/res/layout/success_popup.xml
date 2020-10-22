@@ -77,7 +77,6 @@
                 android:layout_marginEnd="96dp"
                 android:layout_marginRight="96dp"
                 android:layout_marginBottom="220dp"
-                android:background="@color/colorSecondary"
                 android:foregroundGravity="center"
                 android:text="Done"
                 android:textStyle="bold"

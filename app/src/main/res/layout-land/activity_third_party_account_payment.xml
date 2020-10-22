@@ -22,14 +22,16 @@
             android:text="@string/add_third_party_boc"
             android:textAlignment="center"
             android:textColor="@color/textColor"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp"
+            app:fontFamily="@font/acme"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp"
             android:textSize="25dp"
             android:textStyle="bold" />
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="20dp"
             android:paddingLeft="20dp"
             android:paddingRight="20dp">
 
@@ -38,14 +40,16 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:layout_marginTop="25dp"
+                android:background="@color/cardBack1"
                 android:paddingTop="20dp"
-                android:paddingBottom="20dp">
+                android:paddingBottom="60dp">
 
                 <TextView
                     android:id="@+id/obcp_pay_to_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/textColor"
+                    app:fontFamily="@font/acme"
                     android:text="Pay To"
                     android:textSize="20dp"
                     android:textStyle="bold"
@@ -54,7 +58,9 @@
                 <Spinner
                     android:id="@+id/tp_payTo_spinner"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
+                    android:spinnerMode="dropdown"
+                    android:background="@color/itemColor"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp" />
 
@@ -64,6 +70,7 @@
                     android:layout_width="match_parent"
                     android:textColor="@color/textColor"
                     android:layout_height="wrap_content"
+                    app:fontFamily="@font/acme"
                     android:text="Pay From"
                     android:textSize="20dp"
                     android:textStyle="bold"
@@ -74,15 +81,18 @@
                 <Spinner
                     android:id="@+id/tp_payFrom_spinner"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
+                    android:spinnerMode="dropdown"
+                    android:background="@color/itemColor"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp" />
-                
+
                 <TextView
                     android:id="@+id/obcp_amount_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/textColor"
+                    app:fontFamily="@font/acme"
                     android:text="Amount (LKR)"
                     android:textSize="20dp"
                     android:textStyle="bold"
@@ -91,7 +101,7 @@
                     />
 
                 <EditText
-                    android:id="@+id/tp_amount_et"
+                    android:id="@+id/tp_amount_editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -105,6 +115,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/textColor"
+                    app:fontFamily="@font/acme"
                     android:text="Description"
                     android:textSize="20dp"
                     android:textStyle="bold"
@@ -112,7 +123,7 @@
                     android:paddingLeft="20dp" />
 
                 <EditText
-                    android:id="@+id/tp_desc_et"
+                    android:id="@+id/tp_desc_editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -121,22 +132,24 @@
                     android:layout_marginRight="20dp"
                     android:inputType="textPersonName" />
 
+
                 <LinearLayout
                     android:id="@+id/obcp_btn_placement"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:layout_marginLeft="20dp"
+                    android:layout_gravity="bottom"
                     android:layout_marginRight="20dp"
-                    android:layout_marginTop="15dp" >
+                    android:layout_marginTop="40dp" >
 
                     <Button
                         android:id="@+id/tp_cont_btn"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="50dp"
-                        android:layout_marginLeft="50dp"
-                        android:layout_marginTop="15dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="70dp"
+                        android:layout_marginRight="70dp"
                         android:background="@drawable/proceed_button_design"
                         android:text="Continue"
                         android:layout_weight="1"/>
@@ -147,11 +160,7 @@
 
             </LinearLayout>
 
-
-
         </ScrollView>
-
-
 
     </LinearLayout>
 

@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -17,12 +18,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
+
+/*
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+*/
 
 public class billPayment2 extends AppCompatActivity {
 
@@ -35,22 +39,24 @@ public class billPayment2 extends AppCompatActivity {
     Button pay,cancel;
 
     //Database
-    DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+    //DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bill_payment2);
+        getSupportActionBar().setTitle("BOC Mobile Banking - Bill Payments");
 
         invoice = "";
         pamount = "";
 
-        userAccount = getIntent().getStringExtra("accNo");
+        //userAccount = getIntent().getStringExtra("accNo");
+
         //Toast.makeText(billPayment2.this, userAccount, Toast.LENGTH_LONG).show();
         //---get details from prevoius activity-----------
 
-        customerName = getIntent().getStringExtra("customer");
-        billerName = getIntent().getStringExtra("biller");
+        //customerName = getIntent().getStringExtra("customer");
+        //billerName = getIntent().getStringExtra("biller");
 
 
 
@@ -62,8 +68,6 @@ public class billPayment2 extends AppCompatActivity {
 
 
         navigationView = findViewById(R.id.drawerNavigation);
-        //change the topbar title
-        getSupportActionBar().setTitle("Bill Payments");
 
 
         //for side drawer
@@ -74,20 +78,48 @@ public class billPayment2 extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
+        //------------------------------------------------------------------------------------------------------------------------------
+        // function by ISURU to test NEXT button
+        pay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(billPayment2.this, billPayment3.class));
+            }
+        });
+        //-------------------------------------------------------------------------------------------------------------------------------
+
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
                 int id = item.getItemId();
 
                 if(id == R.id.dashboard){
+                    Intent i = new Intent(billPayment2.this,dashboard.class);
+                    startActivity(i);
+                    drawer.closeDrawers();
 
+                }else if(id == R.id.transaction){
+                    Intent i = new Intent(billPayment2.this,MainActivity.class);
+                    startActivity(i);
+                    drawer.closeDrawers();
+                }
+                else if(id == R.id.profile){
+                    Toast.makeText(billPayment2.this,"Profile Selected", Toast.LENGTH_SHORT).show();
+                    //startActivity(new Intent(MainActivity.this, myprofile.class));
+                    drawer.closeDrawers();
+                }
+
+                else if(id == R.id.more){
+                    Intent i = new Intent(billPayment2.this,moreActivityFunction.class);
+                    startActivity(i);
                     drawer.closeDrawers();
                 }
                 return true;
             }
         });
 
-        getAccountNumber();
+       //getAccountNumber();
     }
 
     //menu on top bar
@@ -105,11 +137,9 @@ public class billPayment2 extends AppCompatActivity {
         int id = item.getItemId();
 
 
-        if (id == R.id.help) {
-
-
-            //Toast.makeText(dashboard.this, "Action clicked", Toast.LENGTH_LONG).show();
-
+        if (id == R.id.logout) {
+            startActivity(new Intent(billPayment2.this, Login.class));
+            finish();
         }
 
         if (drawerToggle.onOptionsItemSelected(item)) {
@@ -125,6 +155,7 @@ public class billPayment2 extends AppCompatActivity {
         finish();
     }
 
+/*
     public void getAccountNumber(){
         Query query = dbRef.child("Biller").orderByChild("customerName").equalTo(customerName);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -158,6 +189,9 @@ public class billPayment2 extends AppCompatActivity {
 
     }
 
+*/
+
+/*
     public void payButtonClick(View view){
         invoice = invoiceNo.getText().toString();
         pamount = amount.getText().toString() ;
@@ -183,4 +217,6 @@ public class billPayment2 extends AppCompatActivity {
         }
 
     }
+*/
+
 }

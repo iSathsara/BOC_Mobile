@@ -7,174 +7,163 @@
     tools:context=".OtherBankAccountPayment"
     android:id="@+id/drawer">
 
-    <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".OtherBankAccountPayment"
         android:orientation="vertical">
 
+
         <TextView
-            android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorSecondary"
-            android:paddingTop="10dp"
-            android:paddingBottom="15dp"
             android:text="@string/other_bank_acc_payment"
             android:textAlignment="center"
-            android:textColor="@color/colorTertiary"
+            android:textColor="@color/textColor"
+            app:fontFamily="@font/acme"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp"
             android:textSize="25dp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+            android:textStyle="bold" />
 
-        <androidx.core.widget.NestedScrollView
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
 
-            <androidx.appcompat.widget.LinearLayoutCompat
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginTop="25dp"
+                android:background="@color/cardBack1"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp">
 
                 <TextView
-                    android:id="@+id/obcp_pay_to_tv2"
+                    android:id="@+id/obcp_pay_to_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:paddingLeft="20dp"
-                    android:text="Pay"
-                    android:textColor="@color/colorTertiary"
+                    android:textColor="@color/textColor"
+                    app:fontFamily="@font/acme"
+                    android:text="Pay To"
                     android:textSize="20dp"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView" />
+                    android:paddingLeft="20dp" />
 
                 <Spinner
-                    android:id="@+id/obcp_payTo_spinner2"
+                    android:id="@+id/oba_payTo_spinner"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"/>
+                    android:layout_height="40dp"
+                    android:spinnerMode="dropdown"
+                    android:background="@color/itemColor"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp" />
 
 
                 <TextView
-                    android:id="@+id/obcp_pay_from_tv2"
+                    android:id="@+id/obcp_pay_from_tv"
                     android:layout_width="match_parent"
+                    android:textColor="@color/textColor"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:paddingLeft="20dp"
-                    android:text="Source"
-                    android:textColor="@color/colorTertiary"
+                    app:fontFamily="@font/acme"
+                    android:text="Pay From"
                     android:textSize="20dp"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/obcp_payTo_spinner2" />
+                    android:layout_marginTop="20dp"
+                    android:paddingLeft="20dp"
+                    />
 
                 <Spinner
-                    android:id="@+id/obcp_payFrom_spinner2"
+                    android:id="@+id/oba_payFrom_spinner"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/obcp_pay_from_tv2" />
+                    android:layout_height="40dp"
+                    android:spinnerMode="dropdown"
+                    android:background="@color/itemColor"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp" />
 
                 <TextView
-                    android:id="@+id/obcp_amount_tv2"
+                    android:id="@+id/obcp_amount_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:paddingLeft="20dp"
+                    android:textColor="@color/textColor"
+                    app:fontFamily="@font/acme"
                     android:text="Amount (LKR)"
-                    android:textColor="@color/colorTertiary"
                     android:textSize="20dp"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/obcp_payFrom_spinner2" />
+                    android:layout_marginTop="20dp"
+                    android:paddingLeft="20dp"
+                    />
 
                 <EditText
-                    android:id="@+id/obcp_amount_et2"
+                    android:id="@+id/oba_amount_editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:inputType="numberDecimal"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"/>
+                    android:hint="1000.00"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:inputType="numberDecimal" />
 
                 <TextView
-                    android:id="@+id/obcp_desc_tv2"
+                    android:id="@+id/obcp_desc_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:paddingLeft="20dp"
+                    android:textColor="@color/textColor"
+                    app:fontFamily="@font/acme"
                     android:text="Description"
-                    android:textColor="@color/colorTertiary"
                     android:textSize="20dp"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/obcp_amount_et2" />
+                    android:layout_marginTop="20dp"
+                    android:paddingLeft="20dp" />
 
                 <EditText
-                    android:id="@+id/obcp_desc_et2"
+                    android:id="@+id/oba_desc_editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"/>
+                    android:hint="Ex: settle balance"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:inputType="textPersonName" />
 
-                <androidx.appcompat.widget.LinearLayoutCompat
+
+                <LinearLayout
+                    android:id="@+id/obcp_btn_placement"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="20dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="40dp" >
 
                     <Button
-                        android:id="@+id/cancelBtn"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/tp_cont_btn"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="22dp"
-                        android:layout_marginLeft="100dp"
-                        android:layout_marginRight="100dp"
-                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginRight="50dp"
                         android:background="@drawable/proceed_button_design"
                         android:text="Continue"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/obcp_desc_et2" />
+                        android:layout_weight="1"/>
 
-                    <!-- ADD back button of want
 
-                    <Button
-            android:id="@+id/obcp_cancel_btn2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="22dp"
-            android:layout_marginEnd="60dp"
-            android:layout_marginRight="60dp"
-            android:layout_weight="1"
-            android:background="@drawable/cancel_button_design"
-            android:text="Cancel"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/obcp_desc_et2" />
+                </LinearLayout>
 
-                     -->
 
-                </androidx.appcompat.widget.LinearLayoutCompat>
+            </LinearLayout>
 
-            </androidx.appcompat.widget.LinearLayoutCompat>
+        </ScrollView>
 
-        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
     <!---side drawer-->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/drawerNavigation"
@@ -195,6 +184,5 @@
         app:itemIconSize = "30sp"
         app:menu="@menu/menu_drawer">
     </com.google.android.material.navigation.NavigationView>
-
 
 </androidx.drawerlayout.widget.DrawerLayout>

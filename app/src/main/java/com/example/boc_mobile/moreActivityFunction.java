@@ -9,34 +9,79 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.google.android.material.navigation.NavigationView;
 
 public class moreActivityFunction extends AppCompatActivity {
 
-    private Button logoutbtn;
+    private Button logout_btn,offers_btn,help_btn,contact_btn;
+    private DrawerLayout drawer;
+    private ActionBarDrawerToggle drawerToggle;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_more_function);
+        getSupportActionBar().setTitle("BOC Mobile Banking - More");
 
-        // setting up toolbar
-        Toolbar trans_toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(trans_toolbar);
-        getSupportActionBar().setTitle("More");
+        // Buttons
+        logout_btn = findViewById(R.id.logout);
+        offers_btn = findViewById(R.id.offers_btn);
+        help_btn = findViewById(R.id.help_btn);
+        contact_btn = findViewById(R.id.help_btn);
 
-        logoutbtn = findViewById(R.id.logout);
-        logoutbtn.setOnClickListener(new View.OnClickListener() {
+        // navigation components
+        navigationView = findViewById(R.id.drawerNavigation);
+        drawer = findViewById(R.id.drawer);
+        drawerToggle = new ActionBarDrawerToggle(this,drawer, R.string.open, R.string.close);
+        drawer.addDrawerListener(drawerToggle);
+        drawerToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                int id = item.getItemId();
+
+                if(id == R.id.dashboard){
+                    Intent i = new Intent(moreActivityFunction.this,dashboard.class);
+                    startActivity(i);
+                    drawer.closeDrawers();
+
+                }else if(id == R.id.transaction){
+                    Intent i = new Intent(moreActivityFunction.this,MainActivity.class);
+                    startActivity(i);
+                    drawer.closeDrawers();
+                }
+                if(id == R.id.profile){
+                    Toast.makeText(moreActivityFunction.this,"Profile Selected", Toast.LENGTH_SHORT).show();
+                    //startActivity(new Intent(MainActivity.this, myprofile.class));
+                    drawer.closeDrawers();
+                }
+
+                if(id == R.id.more){
+
+                    drawer.closeDrawers();
+                }
+                return true;
+
+            }
+        });
+
+        logout_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                transferIntent();
+                LogoutIntent();
             }
         });
 
     }
 
-    private void transferIntent() {
+    private void LogoutIntent() {
         Intent intent2 = new Intent(this, Login.class);
         startActivity(intent2);
     }
@@ -60,20 +105,6 @@ public class moreActivityFunction extends AppCompatActivity {
                 //Toast.makeText(this, "Logout selected", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this, Login.class);
                 startActivity(intent);
-                return true;
-
-            case R.id.help:
-
-                // implement function here
-                Toast.makeText(this, "help selected", Toast.LENGTH_LONG).show();
-                return true;
-
-            case R.id.logout2:
-
-                // implement function here
-                //Toast.makeText(this, "Logout selected", Toast.LENGTH_LONG).show();
-                Intent intent2 = new Intent(this, Login.class);
-                startActivity(intent2);
                 return true;
 
             default:

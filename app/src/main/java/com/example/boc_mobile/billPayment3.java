@@ -19,12 +19,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
+
+/*
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+*/
 
 public class billPayment3 extends AppCompatActivity {
 
@@ -37,7 +40,7 @@ public class billPayment3 extends AppCompatActivity {
     int balance;
 
     //Database
-    DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+    //DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
 
     Dialog popup;
 
@@ -47,8 +50,9 @@ public class billPayment3 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bill_payment3);
+        getSupportActionBar().setTitle("BOC Mobile Banking - Bill Payments");
 
-        userAccount = getIntent().getStringExtra("accNo");
+        //userAccount = getIntent().getStringExtra("accNo");
 
         //---related to popup---------------
         popup = new Dialog(this);
@@ -57,12 +61,13 @@ public class billPayment3 extends AppCompatActivity {
         popup.setCanceledOnTouchOutside(false);
         //---get details from prevoius activity-----------
 
+        /*
         customerName = getIntent().getStringExtra("customer");
         invoice = getIntent().getStringExtra("invoice");
         billerName = getIntent().getStringExtra("biller");
         accountNumber = getIntent().getStringExtra("account");
         pamount  = getIntent().getStringExtra("amount");
-
+        */
 
 
         customer = findViewById(R.id.name);
@@ -71,17 +76,15 @@ public class billPayment3 extends AppCompatActivity {
         invoiceNum = findViewById(R.id.type1);
         accNo = findViewById(R.id.accNo);
 
-
+        /*
         customer.setText(customerName);
         payee.setText(billerName);
         invoiceNum.setText(invoice);
         amount.setText(pamount);
         accNo.setText(accountNumber);
+        */
 
         navigationView = findViewById(R.id.drawerNavigation);
-        //change the topbar title
-        getSupportActionBar().setTitle("Bill Payments");
-
 
         //for side drawer
         drawer = findViewById(R.id.drawer);
@@ -97,13 +100,31 @@ public class billPayment3 extends AppCompatActivity {
                 int id = item.getItemId();
 
                 if(id == R.id.dashboard){
+                    Intent i = new Intent(billPayment3.this,dashboard.class);
+                    startActivity(i);
+                    drawer.closeDrawers();
 
+                }else if(id == R.id.transaction){
+                    Intent i = new Intent(billPayment3.this,MainActivity.class);
+                    startActivity(i);
+                    drawer.closeDrawers();
+                }
+                else if(id == R.id.profile){
+                    Toast.makeText(billPayment3.this,"Profile Selected", Toast.LENGTH_SHORT).show();
+                    //startActivity(new Intent(MainActivity.this, myprofile.class));
+                    drawer.closeDrawers();
+                }
+
+                else if(id == R.id.more){
+                    Intent i = new Intent(billPayment3.this,moreActivityFunction.class);
+                    startActivity(i);
                     drawer.closeDrawers();
                 }
                 return true;
             }
         });
 
+        /*
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -155,6 +176,7 @@ public class billPayment3 extends AppCompatActivity {
 
             }
         });
+        */
     }
 
     //menu on top bar
@@ -173,11 +195,9 @@ public class billPayment3 extends AppCompatActivity {
         int id = item.getItemId();
 
 
-        if (id == R.id.help) {
-
-
-            //Toast.makeText(dashboard.this, "Action clicked", Toast.LENGTH_LONG).show();
-
+        if (id == R.id.logout) {
+            startActivity(new Intent(billPayment3.this, Login.class));
+            finish();
         }
 
         if (drawerToggle.onOptionsItemSelected(item)) {
@@ -193,6 +213,7 @@ public class billPayment3 extends AppCompatActivity {
         finish();
     }
 
+    /*
     public void confirmButtonClick(View view){
 
         PaidBills pb = new PaidBills();
@@ -209,4 +230,5 @@ public class billPayment3 extends AppCompatActivity {
         popup.show();
 
     }
+    */
 }

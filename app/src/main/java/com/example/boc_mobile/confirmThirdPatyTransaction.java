@@ -7,6 +7,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -19,7 +20,8 @@ import com.google.android.material.navigation.NavigationView;
 
 public class confirmThirdPatyTransaction extends AppCompatActivity {
 
-    private Button confirm,cancel;
+    private Button proceedBtn;
+    private TextView payfrom_view,payto_view,amount_view,desc_view;
 
     private DrawerLayout drawer;
     private ActionBarDrawerToggle drawerToggle;
@@ -31,11 +33,19 @@ public class confirmThirdPatyTransaction extends AppCompatActivity {
         setContentView(R.layout.activity_third_party_account_payment);
 
         // setting up toolbar
-        Toolbar trans_toolbar = findViewById(R.id.toolbar);
-        getSupportActionBar().setTitle("Transactions");
+        //Toolbar trans_toolbar = findViewById(R.id.toolbar);
+        getSupportActionBar().setTitle("BOC Mobile Banking - Transactions");
 
-        confirm = findViewById(R.id.tp_prcd_btn);
+        // buttons
+        proceedBtn = findViewById(R.id.tp_prcd_btn);
 
+        // text fields
+        payto_view = findViewById(R.id.tp_payto_confirm);
+        payfrom_view = findViewById(R.id.tp_payfrom_confirm);
+        amount_view = findViewById(R.id.tp_amount_confirm);
+        desc_view = findViewById(R.id.tp_desc_confirm);
+
+        // navigation view
         navigationView = findViewById(R.id.drawerNavigation);
 
         //for side drawer
@@ -74,7 +84,7 @@ public class confirmThirdPatyTransaction extends AppCompatActivity {
             }
         });
 
-        confirm.setOnClickListener(new View.OnClickListener() {
+        proceedBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(confirmThirdPatyTransaction.this);
@@ -135,10 +145,12 @@ public class confirmThirdPatyTransaction extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /*
     private void cancelIntent(){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
+    */
 
     // set logout icon in app bar
     @Override

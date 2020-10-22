@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -20,14 +21,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
+
+/*
 import com.google.firebase.database.*;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+*/
 
 import java.util.Arrays;
 import java.util.List;
 
-public class addBiller extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+//public class addBiller extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+
+
+public class addBiller extends AppCompatActivity{
 
     private DrawerLayout drawer;
     private ActionBarDrawerToggle drawerToggle;
@@ -42,7 +49,7 @@ public class addBiller extends AppCompatActivity implements AdapterView.OnItemSe
     ProgressDialog progress;
 
     //Database
-    DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+    //DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
 
 
 
@@ -85,14 +92,29 @@ public class addBiller extends AppCompatActivity implements AdapterView.OnItemSe
                 int id = item.getItemId();
 
                 if(id == R.id.dashboard){
+                    Intent i = new Intent(addBiller.this,dashboard.class);
+                    startActivity(i);
+                    drawer.closeDrawers();
 
+                }else if(id == R.id.transaction){
+                    drawer.closeDrawers();
+                }
+                else if(id == R.id.profile){
+                    Toast.makeText(addBiller.this,"Profile Selected", Toast.LENGTH_SHORT).show();
+                    //startActivity(new Intent(MainActivity.this, myprofile.class));
+                    drawer.closeDrawers();
+                }
+
+                else if(id == R.id.more){
+                    Intent i = new Intent(addBiller.this,moreActivityFunction.class);
+                    startActivity(i);
                     drawer.closeDrawers();
                 }
                 return true;
             }
         });
 
-
+        /*
 
         //add items to spinners
         ArrayAdapter<CharSequence> billerSequence = ArrayAdapter.createFromResource(this,R.array.biller_category,android.R.layout.simple_spinner_item);
@@ -115,6 +137,9 @@ public class addBiller extends AppCompatActivity implements AdapterView.OnItemSe
         billerType.setAdapter(billType);
         billerType.setOnItemSelectedListener(addBiller.this);
 
+
+        */
+
     }
 
     //menu on top bar
@@ -132,11 +157,9 @@ public class addBiller extends AppCompatActivity implements AdapterView.OnItemSe
         int id = item.getItemId();
 
 
-        if (id == R.id.help) {
-
-
-            //Toast.makeText(dashboard.this, "Action clicked", Toast.LENGTH_LONG).show();
-
+        if (id == R.id.logout) {
+            startActivity(new Intent(addBiller.this, Login.class));
+            finish();
         }
 
         if (drawerToggle.onOptionsItemSelected(item)) {
@@ -146,11 +169,14 @@ public class addBiller extends AppCompatActivity implements AdapterView.OnItemSe
         return super.onOptionsItemSelected(item);
     }
 
+    // BILLER LIST------------------- include the java file
+    /*
     public void viewBiller(View view){
 
         Intent i = new Intent(addBiller.this,biller_list.class);
         startActivity(i);
     }
+    */
 
     public void nextButtonClick(View view){
 
@@ -187,6 +213,7 @@ public class addBiller extends AppCompatActivity implements AdapterView.OnItemSe
 
     }
 
+/*
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -242,14 +269,16 @@ public class addBiller extends AppCompatActivity implements AdapterView.OnItemSe
 
     }
 
-    @Override
+*/
+
+    //@Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
 
     //-----get biller names from the db---------
 
-
+/*
     public void getBillerNames(String category){
        // Toast.makeText(addBiller.this,category, Toast.LENGTH_LONG).show();
            Query query = dbRef.child("BillerList").orderByChild("category").equalTo(category);
@@ -290,5 +319,7 @@ public class addBiller extends AppCompatActivity implements AdapterView.OnItemSe
 
 
     }
+
+*/
 
 }

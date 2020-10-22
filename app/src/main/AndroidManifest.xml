@@ -9,8 +9,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".dashboard"></activity>
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".ThirdPartyTransaction"></activity>
+        <activity android:name=".OtherBankCreditConfirm"></activity>
+        <activity android:name=".OtherBankCreditCardPayment"></activity>
+        <activity android:name=".OtherBankAccountPayment"></activity>
         <activity android:name=".OtherBankAccountConfirm"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".moreActivityFunction"></activity>
+        <activity android:name=".confirmThirdPatyTransaction"></activity>
+        <activity android:name=".billPayment3"></activity>
+        <activity android:name=".billPayment2"></activity>
+        <activity android:name=".billPayment"></activity>
+        <activity android:name=".addBiller2"></activity>
+        <activity android:name=".addBiller"></activity>
+        <activity android:name=".Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

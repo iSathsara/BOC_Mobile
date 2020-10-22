@@ -5,7 +5,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -16,8 +19,9 @@ import com.google.android.material.navigation.NavigationView;
 
 public class OtherBankAccountPayment extends AppCompatActivity {
 
-    private Button backToTransMenu;
-    private Button ConfirmBtn;
+    private Button continueBtn;
+    private Spinner payto_spinner,payfrom_spinner;
+    private EditText amount_editText, desc_editText;
 
     private DrawerLayout drawer;
     private ActionBarDrawerToggle drawerToggle;
@@ -27,7 +31,17 @@ public class OtherBankAccountPayment extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_other_bank_account_payment);
-        getSupportActionBar().setTitle("Transactions");
+        getSupportActionBar().setTitle("BOC Mobile Banking - Transactions");
+
+        // Buttons
+        continueBtn = findViewById(R.id.tp_cont_btn);
+
+        // input fields
+        payto_spinner = findViewById(R.id.oba_payTo_spinner);
+        payfrom_spinner = findViewById(R.id.oba_payFrom_spinner);
+        amount_editText = findViewById(R.id.oba_amount_editText);
+        desc_editText = findViewById(R.id.oba_desc_editText);
+
 
         navigationView = findViewById(R.id.drawerNavigation);
 
@@ -67,12 +81,21 @@ public class OtherBankAccountPayment extends AppCompatActivity {
             }
         });
 
-
-        //backToTransMenu = (Button) findViewById(R.id.obcp_cancel_btn2);
+        // launch confirm
+        continueBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                launchCnonfirmActivity();
+            }
+        });
 
     }
 
-
+    // launch confirm
+    private void launchCnonfirmActivity(){
+        Intent intent = new Intent(OtherBankAccountPayment.this, OtherBankAccountConfirm.class);
+        startActivity(intent);
+    }
 
 
 
@@ -94,20 +117,6 @@ public class OtherBankAccountPayment extends AppCompatActivity {
                 //Toast.makeText(this, "Logout selected", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this, Login.class);
                 startActivity(intent);
-                return true;
-
-            case R.id.help:
-
-                // implement function here
-                Toast.makeText(this, "help selected", Toast.LENGTH_LONG).show();
-                return true;
-
-            case R.id.logout2:
-
-                // implement function here
-                //Toast.makeText(this, "Logout selected", Toast.LENGTH_LONG).show();
-                Intent intent2 = new Intent(this, Login.class);
-                startActivity(intent2);
                 return true;
 
             default:

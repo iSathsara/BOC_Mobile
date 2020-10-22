@@ -24,6 +24,7 @@
             android:text="@string/other_bank_acc_confirm"
             android:textAlignment="center"
             android:textColor="@color/textColor"
+            android:fontFamily="@font/acme"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
             android:textSize="25dp"
@@ -47,6 +48,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@color/cardBack1"
                         android:orientation="vertical">
 
                         <TextView
@@ -65,7 +67,7 @@
                             app:fontFamily="@font/acme" />
 
                         <TextView
-                            android:id="@+id/obct_payto_detail"
+                            android:id="@+id/oba_payto_confirm"
                             android:layout_width="match_parent"
                             android:layout_height="46dp"
                             android:layout_marginStart="8dp"
@@ -96,37 +98,7 @@
                             app:fontFamily="@font/acme" />
 
                         <TextView
-                            android:id="@+id/obct_payfrom_detail"
-                            android:layout_width="match_parent"
-                            android:layout_height="46dp"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginEnd="8dp"
-                            android:layout_marginRight="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:background="@color/itemColor"
-                            android:gravity="left|center"
-                            android:paddingLeft="10dp"
-                            android:textSize="18sp" />
-
-                        <TextView
-                            android:id="@+id/tp_method_label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginEnd="8dp"
-                            android:layout_marginRight="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:text="Payment Method"
-                            android:textSize="22sp"
-                            android:textStyle="bold"
-                            app:fontFamily="@font/acme" />
-
-                        <TextView
-                            android:id="@+id/obct_method_detail"
+                            android:id="@+id/oba_payfrom_confirm"
                             android:layout_width="match_parent"
                             android:layout_height="46dp"
                             android:layout_marginStart="8dp"
@@ -156,7 +128,7 @@
                             app:fontFamily="@font/acme" />
 
                         <TextView
-                            android:id="@+id/tp_amount_detail"
+                            android:id="@+id/oba_amount_confirm"
                             android:layout_width="match_parent"
                             android:layout_height="46dp"
                             android:layout_marginStart="8dp"
@@ -186,7 +158,7 @@
                             app:fontFamily="@font/acme" />
 
                         <TextView
-                            android:id="@+id/obct_desc_detail"
+                            android:id="@+id/oba_desc_confirm"
                             android:layout_width="match_parent"
                             android:layout_height="46dp"
                             android:layout_marginStart="8dp"
@@ -216,7 +188,7 @@
                     android:layout_marginTop="15dp" >
 
                     <Button
-                        android:id="@+id/obct_confirmBtn"
+                        android:id="@+id/oba_proceedBtn"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="50dp"

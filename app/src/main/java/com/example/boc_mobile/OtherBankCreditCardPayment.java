@@ -11,15 +11,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 
-public class OtherBankCreditCardPayment extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+//public class OtherBankCreditCardPayment extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    //private Button backToTransMenu;
+public class OtherBankCreditCardPayment extends AppCompatActivity {
+
     private Button continueButton;
     String uname;
     Spinner payFrom,payTo,paymentMethod;
@@ -34,17 +35,18 @@ public class OtherBankCreditCardPayment extends AppCompatActivity implements Ada
         setContentView(R.layout.activity_other_bank_credit_card_payment);
 
         // setting up toolbar
-        Toolbar trans_toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(trans_toolbar);
-        getSupportActionBar().setTitle("Transactions");
+        //Toolbar trans_toolbar = findViewById(R.id.toolbar);
+        getSupportActionBar().setTitle("BOC Mobile Banking - Transactions");
 
-        //backToTransMenu = (Button) findViewById(R.id.obcp_cancel_btn);
+        // Buttons
         continueButton = (Button) findViewById(R.id.obcp_cont_btn);
+
+        // input fields
         payFrom = findViewById(R.id.obcp_payFrom_spinner);
         payTo = findViewById(R.id.obcp_payTo_spinner);
         paymentMethod = findViewById(R.id.obcp_payMethod_spinner);
-        amount = findViewById(R.id.obcp_amount_et);
-        description = findViewById(R.id.obcp_desc_et);
+        amount = findViewById(R.id.obcp_amount_editText);
+        description = findViewById(R.id.obcp_desc_editText);
 
 
 
@@ -65,8 +67,9 @@ public class OtherBankCreditCardPayment extends AppCompatActivity implements Ada
             }
         });
 
-        uname = getIntent().getStringExtra("accNo");
+        //uname = getIntent().getStringExtra("accNo");
 
+        /*
 
         //add items to spinners
         ArrayAdapter<CharSequence> nameSequence = ArrayAdapter.createFromResource(this,R.array.customerIsuru,android.R.layout.simple_spinner_item);
@@ -87,20 +90,24 @@ public class OtherBankCreditCardPayment extends AppCompatActivity implements Ada
         paymentMethod.setAdapter(method );
         paymentMethod.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) OtherBankCreditCardPayment.this);
 
+        */
+
     }
 
     // method to goto confirm transaction
     private void gotoConfirm(){
 
-        pamount = amount.getText().toString();
-        des = description.getText().toString();
+        //pamount = amount.getText().toString();
+        //des = description.getText().toString();
+
         Intent intent = new Intent(this, OtherBankCreditConfirm.class);
-        intent.putExtra("accountNo",uname);
-        intent.putExtra("to",to);
-        intent.putExtra("from",from);
-        intent.putExtra("amount",pamount);
-        intent.putExtra("method",method);
-        intent.putExtra("description",des);
+
+        //intent.putExtra("accountNo",uname);
+        //intent.putExtra("to",to);
+        //intent.putExtra("from",from);
+        //intent.putExtra("amount",pamount);
+        //intent.putExtra("method",method);
+        //intent.putExtra("description",des);
 
         startActivity(intent);
     }
@@ -126,26 +133,13 @@ public class OtherBankCreditCardPayment extends AppCompatActivity implements Ada
                 startActivity(intent);
                 return true;
 
-            case R.id.help:
-
-                // implement function here
-                Toast.makeText(this, "help selected", Toast.LENGTH_LONG).show();
-                return true;
-
-            case R.id.logout2:
-
-                // implement function here
-                //Toast.makeText(this, "Logout selected", Toast.LENGTH_LONG).show();
-                Intent intent2 = new Intent(this, Login.class);
-                startActivity(intent2);
-                return true;
-
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
 
+    /*
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
@@ -180,10 +174,16 @@ public class OtherBankCreditCardPayment extends AppCompatActivity implements Ada
 
 
     }
+    */
 
+
+    /*
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
+    */
+
+
 }
 
