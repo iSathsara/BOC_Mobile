@@ -157,9 +157,6 @@ public class addBiller extends AppCompatActivity implements AdapterView.OnItemSe
 
         int id = item.getItemId();
 
-
-
-
         if (id == R.id.logout) {
             startActivity(new Intent(addBiller.this, Login.class));
             finish();

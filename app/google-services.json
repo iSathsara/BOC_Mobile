@@ -110,6 +110,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "843082504801-ks45c497h1kfj4mgn2sfjmtrkmt74aqo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.boc_mobile",
+            "certificate_hash": "7dbcf7c90fddfdf8b87bb9cba28c46653823a66e"
+          }
+        },
+        {
           "client_id": "843082504801-6u4io7obs1vbk65pbo96gbsdr011aqvu.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
