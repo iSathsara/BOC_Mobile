@@ -4,8 +4,6 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
         <item name="android:itemBackground">@color/itemColor</item>
         <item name="android:itemTextAppearance">@color/colorPrimary</item>
         <item name="android:textColor">@color/textColor</item>
@@ -18,4 +16,8 @@
         <item name="android:colorLongPressedHighlight">@color/colorPrimary</item>
     </style>
 
+
+    <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
 </resources>

@@ -10,7 +10,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,6 +22,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 /*
 import com.google.firebase.database.DataSnapshot;
@@ -32,23 +40,25 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-//public class billPayment extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-public class billPayment extends AppCompatActivity{
+public class billPayment extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private DrawerLayout drawer;
     private ActionBarDrawerToggle drawerToggle;
+    TextView acc;
+    EditText invoice,amount;
     NavigationView navigationView;
     Spinner customer,billerSpinner;
     Button next,cancel,addBiller;
-    String name,biller,accNo;
+    String name,biller,accNo,uname,invoiceNum,pamount;
     ArrayList<String> billList = new ArrayList<>();
     int check = 0;
+    String[] nameArray = new String[2];
 
     ProgressDialog progress;
 
     //Database
-    //DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,45 +66,30 @@ public class billPayment extends AppCompatActivity{
         setContentView(R.layout.activity_bill_payment);
         getSupportActionBar().setTitle("BOC Mobile Banking - Bill Payments");
 
+        uname = SaveSharedPreference.getUserName(billPayment.this);
+
         billerSpinner = findViewById(R.id.type1);
         next = findViewById(R.id.pay);
         addBiller = (Button)findViewById(R.id.addBiller);
-
-        //---------------------------------------------------------------------------------------------------------
-        // function by ISURU to test next button
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                nextOnClick();
-            }
-        });
-        //---------------------------------------------------------------------------------------------------------
-
-        //---------------------------------------------------------------------------------------------------------
-        // function by ISURU to test add biller button
-        addBiller.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addBillerOnClick();
-            }
-        });
-        //---------------------------------------------------------------------------------------------------------
-
-
-        /*
-        accNo = getIntent().getStringExtra("accNo");
-
+        acc = findViewById(R.id.account);
+        amount = findViewById(R.id.amount);
+        invoice = findViewById(R.id.invoice);
 
         name = "Select";
-
-        next.setOnClickListener((View.OnClickListener) this);
+        biller = "Select";
+        invoiceNum = "";
+        pamount = "";
+       // next.setOnClickListener((View.OnClickListener) this);
         customer = findViewById(R.id.customer);
-        ArrayAdapter<CharSequence> sequence = ArrayAdapter.createFromResource(this,R.array.customer,android.R.layout.simple_spinner_item);
-        sequence.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        customer.setAdapter(sequence);
-        customer.setOnItemSelectedListener(this);
+        getCustomerName();
 
-        */
+
+        navigationView = findViewById(R.id.drawerNavigation);
+        //change the topbar title
+        getSupportActionBar().setTitle("Transactions");
+
+
+
 
         // navigation components
         navigationView = findViewById(R.id.drawerNavigation);
@@ -156,34 +151,13 @@ public class billPayment extends AppCompatActivity{
         int id = item.getItemId();
 
 
+
+
+
         if (id == R.id.logout) {
-            AlertDialog.Builder alert = new AlertDialog.Builder(billPayment.this);
-
-            alert.setTitle("Logout");
-            alert.setIcon(R.drawable.ic_warning);
-            alert.setMessage("You are about to logout. Please confirm");
-            alert.setPositiveButton("Logout", null);
-            alert.setNegativeButton("Cancel", null);
-
-            AlertDialog dialog = alert.create();
-            dialog.show();
-            dialog.getWindow().setBackgroundDrawableResource(R.drawable.alert_design);
-
-
-            // this will change the default behaviour of buttons
-            Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
-            positiveButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    // redirect to dashboard
-                    Intent i = new Intent(billPayment.this,Login.class);
-                    //i.putExtra("uname",uname);
-                    startActivity(i);
-                    finish();
-                }
-            });
+            startActivity(new Intent(billPayment.this, Login.class));
         }
+
 
         if (drawerToggle.onOptionsItemSelected(item)) {
             return true;
@@ -192,7 +166,7 @@ public class billPayment extends AppCompatActivity{
         return super.onOptionsItemSelected(item);
     }
 
-/*
+
     public void onItemSelected(AdapterView<?> parent, View view,int pos, long id) {
 
         if (++check > 1) {
@@ -203,7 +177,7 @@ public class billPayment extends AppCompatActivity{
 
                 case R.id.customer:
                     name = parent.getSelectedItem().toString();
-                    progress = new ProgressDialog(billPayment.this);
+                    progress = new ProgressDialog(billPayment.this,R.style.MyAlertDialogStyle);
                     progress.setTitle("Loading");
                     progress.setMessage("Wait while loading...");
                     progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
@@ -217,24 +191,22 @@ public class billPayment extends AppCompatActivity{
 
                 case R.id.type1:
                     biller = parent.getSelectedItem().toString();
+                    if(!biller.equals("Select")){
+
+                        getAccountNumber();
+                    }
                     break;
 
             }
         }
     }
-*/
+
 
     //@Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
 
-
-    public void cancelOnClick(View view){
-
-        Intent i = new Intent(this,MainActivity.class);
-        startActivity(i);
-    }
 
     public void adBillerOnClick(View view){
 
@@ -243,26 +215,16 @@ public class billPayment extends AppCompatActivity{
         startActivity(i);
     }
 
-    //---------------------------------------------------------------------------------------------------------
-    // function by ISURU, for testing NEXT button
-    public void addBillerOnClick(){
-        startActivity(new Intent(billPayment.this, billPayment2.class));
-    }
-    //---------------------------------------------------------------------------------------------------------
-
-    //---------------------------------------------------------------------------------------------------------
-    // function by ISURU, for testing NEXT button
-    public void nextOnClick(){
-        startActivity(new Intent(billPayment.this, billPayment2.class));
-    }
-    //---------------------------------------------------------------------------------------------------------
 
 
-/*
+
+
+
     public void getBillerNames(String name){
+        billList.add("Select");
 
-        Query query = dbRef.child("Biller").orderByChild("customerName").equalTo(name);
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        Query query = dbRef.child("Biller").orderByChild("uname").equalTo(uname);
+        ((Query) query).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
@@ -273,7 +235,7 @@ public class billPayment extends AppCompatActivity{
                         //Toast.makeText(billPayment.this, str, Toast.LENGTH_LONG).show();
                     }
 
-                    if(billList.size() > 0){
+                    if(billList.size() > 1){
 
                         progress.dismiss();
                     }
@@ -299,30 +261,132 @@ public class billPayment extends AppCompatActivity{
 
 
     }
-*/
+
 
 
     public void nextButtonClick(View view){
 
-        if(!name.equals("Select")){
+         invoiceNum = invoice.getText().toString();
+         pamount = amount.getText().toString();
 
-            Intent i = new Intent(billPayment.this,billPayment2.class);
-            //i.putExtra("customer",name);
-            //i.putExtra("biller",biller);
-            //i.putExtra("accNo",accNo);
-            startActivity(i);
-        }else{
+
+        if(name.equals("Select") || biller.equals("Select") || invoiceNum.equals("") || pamount.equals("")){
+
+
             AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
             dlgAlert.setMessage("Please fill required fields");
-            dlgAlert.setIcon(R.drawable.ic_error_black_24dp);
+            dlgAlert.setIcon(R.drawable.empty_warning);
             dlgAlert.setTitle("Alert!!");
             dlgAlert.setPositiveButton("OK", null);
             dlgAlert.setCancelable(true);
             dlgAlert.create().show();
+
+        }else{
+            Intent i = new Intent(billPayment.this,billPayment3.class);
+            i.putExtra("customer",name);
+            i.putExtra("biller",biller);
+            i.putExtra("accNo",accNo);
+            i.putExtra("invoiceNo",invoiceNum);
+            i.putExtra("amount",pamount);
+            startActivity(i);
         }
 
 
 
+    }
+
+
+    public void getAccountNumber(){
+
+
+
+
+        Query query = dbRef.child("Biller").orderByChild("biller").equalTo(biller);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    String no = "";
+                    for (DataSnapshot issue : dataSnapshot.getChildren()) {
+                        no = issue.child("accNo").getValue().toString();
+                        acc.setText(no);
+                        accNo = acc.getText().toString();
+
+                        if(!accNo.equals("")){
+
+                            progress.dismiss();
+                        }
+
+                        break;
+
+
+
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+    }
+
+    /**
+     * get customer name
+     */
+
+    public void getCustomerName(){
+
+        uname = SaveSharedPreference.getUserName(billPayment.this);
+        final ProgressDialog progress = new ProgressDialog(billPayment.this,R.style.MyAlertDialogStyle);
+        progress.setTitle("Loading");
+        progress.setMessage("Wait while loading...");
+        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+        progress.show();
+
+         /*
+          DB query
+         */
+
+        Query query = dbRef.child("User").orderByChild("uname").equalTo(uname);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+
+                    String customers;
+
+                    for (DataSnapshot issue : dataSnapshot.getChildren()) {
+                        customers = issue.child("Name").getValue().toString();
+
+                        nameArray[0] = "Select";
+                        nameArray[1] = customers;
+                        break;
+                    }
+
+
+                    if (nameArray.length > 1) {
+                        ArrayAdapter nameSequence = new ArrayAdapter<>(billPayment.this, android.R.layout.simple_list_item_1, nameArray);
+                        nameSequence.notifyDataSetChanged();
+                        nameSequence.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        customer.setAdapter(nameSequence);
+                        customer.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) billPayment.this);
+                        progress.dismiss();
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        }  );
     }
 
 }

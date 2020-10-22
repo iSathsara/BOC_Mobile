@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -21,6 +22,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 /*
 import com.google.firebase.database.*;
@@ -31,10 +38,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.Arrays;
 import java.util.List;
 
-//public class addBiller extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
 
-public class addBiller extends AppCompatActivity{
+
+public class addBiller extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private DrawerLayout drawer;
     private ActionBarDrawerToggle drawerToggle;
@@ -44,22 +51,21 @@ public class addBiller extends AppCompatActivity{
     int flag;
     int check = 0;
     String[] billerArray = {"Select"};
-    String customerName,billerCategory,billerName,type,account;
+    String customerName,billerCategory,billerName,type,account,uname;
     Button viewBiller,next,cancel;
     ProgressDialog progress;
+    String[] nameArray = new String[2];
 
     //Database
-    //DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
 
-
-
-
-
-   // final ListView listView = (ListView) findViewById(R.id.mobile_list);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_biller);
+
+        uname = SaveSharedPreference.getUserName(addBiller.this);
+        getCustomerName();
 
         accNo = findViewById(R.id.accNo);
         custom = findViewById(R.id.customer);
@@ -75,7 +81,7 @@ public class addBiller extends AppCompatActivity{
 
         navigationView = findViewById(R.id.drawerNavigation);
         //change the topbar title
-        getSupportActionBar().setTitle("BOC Mobile Banking - Add Biller");
+        getSupportActionBar().setTitle("Transactions");
 
 
         //for side drawer
@@ -114,21 +120,16 @@ public class addBiller extends AppCompatActivity{
             }
         });
 
-        /*
 
-        //add items to spinners
+
+        /*
+          add items to spinners
+         */
         ArrayAdapter<CharSequence> billerSequence = ArrayAdapter.createFromResource(this,R.array.biller_category,android.R.layout.simple_spinner_item);
         billerSequence.notifyDataSetChanged();
         billerSequence.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         billCat.setAdapter(billerSequence);
-       billCat.setOnItemSelectedListener(addBiller.this);
-
-
-        ArrayAdapter<CharSequence> customerSequence = ArrayAdapter.createFromResource(this,R.array.customer,android.R.layout.simple_spinner_item);
-        customerSequence.notifyDataSetChanged();
-        customerSequence.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        custom.setAdapter(customerSequence);
-        custom.setOnItemSelectedListener(addBiller.this);
+        billCat.setOnItemSelectedListener(addBiller.this);
 
 
         ArrayAdapter<CharSequence> billType = ArrayAdapter.createFromResource(this,R.array.billerType,android.R.layout.simple_spinner_item);
@@ -138,7 +139,7 @@ public class addBiller extends AppCompatActivity{
         billerType.setOnItemSelectedListener(addBiller.this);
 
 
-        */
+
 
     }
 
@@ -157,34 +158,13 @@ public class addBiller extends AppCompatActivity{
         int id = item.getItemId();
 
 
+
+
         if (id == R.id.logout) {
-            AlertDialog.Builder alert = new AlertDialog.Builder(addBiller.this);
-
-            alert.setTitle("Logout");
-            alert.setIcon(R.drawable.ic_warning);
-            alert.setMessage("You are about to logout. Please confirm");
-            alert.setPositiveButton("Logout", null);
-            alert.setNegativeButton("Cancel", null);
-
-            AlertDialog dialog = alert.create();
-            dialog.show();
-            dialog.getWindow().setBackgroundDrawableResource(R.drawable.alert_design);
-
-
-            // this will change the default behaviour of buttons
-            Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
-            positiveButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    // redirect to dashboard
-                    Intent i = new Intent(addBiller.this,Login.class);
-                    //i.putExtra("uname",uname);
-                    startActivity(i);
-                    finish();
-                }
-            });
+            startActivity(new Intent(addBiller.this, Login.class));
+            finish();
         }
+
 
         if (drawerToggle.onOptionsItemSelected(item)) {
             return true;
@@ -193,14 +173,13 @@ public class addBiller extends AppCompatActivity{
         return super.onOptionsItemSelected(item);
     }
 
-    // BILLER LIST------------------- include the java file
-    /*
+
     public void viewBiller(View view){
 
         Intent i = new Intent(addBiller.this,biller_list.class);
         startActivity(i);
     }
-    */
+
 
     public void nextButtonClick(View view){
 
@@ -219,7 +198,7 @@ public class addBiller extends AppCompatActivity{
        }else{
             AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
             dlgAlert.setMessage("Please fill required fields");
-            dlgAlert.setIcon(R.drawable.ic_error_black_24dp);
+            dlgAlert.setIcon(R.drawable.empty_warning);
             dlgAlert.setTitle("Alert!!");
             dlgAlert.setPositiveButton("OK", null);
             dlgAlert.setCancelable(true);
@@ -237,7 +216,7 @@ public class addBiller extends AppCompatActivity{
 
     }
 
-/*
+
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -254,7 +233,7 @@ public class addBiller extends AppCompatActivity{
                     if(!item.equals("Select")){
                        // Toast.makeText(addBiller.this,"3", Toast.LENGTH_LONG).show();
                         getBillerNames(item);
-                        progress = new ProgressDialog(addBiller.this);
+                        progress = new ProgressDialog(addBiller.this,R.style.MyAlertDialogStyle);
                         progress.setTitle("Loading");
                         progress.setMessage("Wait while loading...");
                         progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
@@ -293,7 +272,7 @@ public class addBiller extends AppCompatActivity{
 
     }
 
-*/
+
 
     //@Override
     public void onNothingSelected(AdapterView<?> adapterView) {
@@ -302,11 +281,11 @@ public class addBiller extends AppCompatActivity{
 
     //-----get biller names from the db---------
 
-/*
+
     public void getBillerNames(String category){
        // Toast.makeText(addBiller.this,category, Toast.LENGTH_LONG).show();
            Query query = dbRef.child("BillerList").orderByChild("category").equalTo(category);
-            query.addListenerForSingleValueEvent(new ValueEventListener() {
+            ((Query) query).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
@@ -344,6 +323,59 @@ public class addBiller extends AppCompatActivity{
 
     }
 
-*/
+
+    /**
+     * get customer name
+     */
+
+    public void getCustomerName(){
+
+        uname = SaveSharedPreference.getUserName(addBiller.this);
+        final ProgressDialog progress = new ProgressDialog(addBiller.this,R.style.MyAlertDialogStyle);
+        progress.setTitle("Loading");
+        progress.setMessage("Wait while loading...");
+        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+        progress.show();
+
+         /*
+          DB query
+         */
+
+        Query query = dbRef.child("User").orderByChild("uname").equalTo(uname);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+
+                    String customers;
+
+                    for (DataSnapshot issue : dataSnapshot.getChildren()) {
+                        customers = issue.child("Name").getValue().toString();
+
+                        nameArray[0] = "Select";
+                        nameArray[1] = customers;
+                        break;
+                    }
+
+
+                    if (nameArray.length > 1) {
+                        ArrayAdapter nameSequence = new ArrayAdapter<>(addBiller.this, android.R.layout.simple_list_item_1, nameArray);
+                        nameSequence.notifyDataSetChanged();
+                        nameSequence.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        custom.setAdapter(nameSequence);
+                        custom.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) addBiller.this);
+                        progress.dismiss();
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        }  );
+    }
+
 
 }

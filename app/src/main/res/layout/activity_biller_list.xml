@@ -57,6 +57,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="319dp"
                     android:layout_height="541dp"

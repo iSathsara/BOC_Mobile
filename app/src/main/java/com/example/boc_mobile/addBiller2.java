@@ -18,12 +18,13 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.boc_mobile.Models.Biller;
 import com.google.android.material.navigation.NavigationView;
 
-/*
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-*/
+
 
 public class addBiller2 extends AppCompatActivity {
 
@@ -32,14 +33,14 @@ public class addBiller2 extends AppCompatActivity {
     NavigationView navigationView;
 
     TextView customer,category,biller,acc,type;
-    String customerName,billerCategory,billerName,accountNumber,bType;
+    String customerName,billerCategory,billerName,accountNumber,bType,uname;
 
     Dialog dialog,popup;
 
     Button cancelPopup;
 
     //Database
-    //DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("Biller");
+    DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("Biller");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +53,8 @@ public class addBiller2 extends AppCompatActivity {
         cancelPopup = popup.findViewById(R.id.popupCancel);
         popup.setCanceledOnTouchOutside(false);
 
-        //---get details from prevoius activity-----------
-
+        //---get details from previous activity-----------
+        uname = SaveSharedPreference.getUserName(addBiller2.this);
         customerName = getIntent().getStringExtra("customer");
         billerCategory = getIntent().getStringExtra("category");
         billerName = getIntent().getStringExtra("biller");
@@ -82,7 +83,7 @@ public class addBiller2 extends AppCompatActivity {
 
         navigationView = findViewById(R.id.drawerNavigation);
         //change the topbar title
-        getSupportActionBar().setTitle("BOC Mobile Banking - Add Biller");
+        getSupportActionBar().setTitle("Transactions");
 
 
         //for side drawer
@@ -146,34 +147,12 @@ public class addBiller2 extends AppCompatActivity {
         int id = item.getItemId();
 
 
+
         if (id == R.id.logout) {
-            AlertDialog.Builder alert = new AlertDialog.Builder(addBiller2.this);
-
-            alert.setTitle("Logout");
-            alert.setIcon(R.drawable.ic_warning);
-            alert.setMessage("You are about to logout. Please confirm");
-            alert.setPositiveButton("Logout", null);
-            alert.setNegativeButton("Cancel", null);
-
-            AlertDialog dialog = alert.create();
-            dialog.show();
-            dialog.getWindow().setBackgroundDrawableResource(R.drawable.alert_design);
-
-
-            // this will change the default behaviour of buttons
-            Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
-            positiveButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    // redirect to dashboard
-                    Intent i = new Intent(addBiller2.this,Login.class);
-                    //i.putExtra("uname",uname);
-                    startActivity(i);
-                    finish();
-                }
-            });
+            startActivity(new Intent(addBiller2.this, Login.class));
+            finish();
         }
+
 
         if (drawerToggle.onOptionsItemSelected(item)) {
             return true;
@@ -188,23 +167,68 @@ public void cancelOnClick(View view){
         finish();
 }
 
-/*
+
 public void confirmButtonClick(View view){
 
     Biller biller = new Biller();
 
-    biller.setCustomerId("1");
-    biller.setCustomerName(customerName);
+    biller.setuname(uname);
     biller.setAccNo(accountNumber);
     biller.setBiller(billerName);
     biller.setBillerCategory(billerCategory);
     biller.setbType(bType);
 
     dbRef.push().setValue(biller);
-    popup.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-    popup.show();
+    AlertDialog.Builder alert = new AlertDialog.Builder(addBiller2.this);
+
+    alert.setTitle("SUCCESSFUL");
+    alert.setIcon(R.drawable.transaction_okay);
+    alert.setMessage("The amount is transferred successfully");
+    alert.setPositiveButton("DONE", null);
+    alert.setNegativeButton("Another Transaction", null);
+
+    AlertDialog dialog = alert.create();
+    dialog.show();
+    dialog.getWindow().setBackgroundDrawableResource(R.drawable.alert_design);
+
+    //updateAccountBalance();
+
+    // this will change the default behaviour of buttons
+    Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+    positiveButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+
+                launchDashboard();
+
+
+        }
+    });
+
+    // this will change the default behaviour of buttons
+    Button negativeButton = dialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+    negativeButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+            launchOtherTransaction();
+
+        }
+    });
 
 }
-*/
+
+    private void launchDashboard(){
+        Intent intent = new Intent(this, dashboard.class);
+        startActivity(intent);
+    }
+
+    // intent for launch other transaction
+    private void launchOtherTransaction(){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
 
 }
