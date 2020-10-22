@@ -1,17 +1,25 @@
 package com.example.boc_mobile;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.Bundle;
+import
+        android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
@@ -22,6 +30,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Arrays;
+import java.util.List;
+
 
 public class dashboard extends AppCompatActivity {
 
@@ -30,25 +41,40 @@ public class dashboard extends AppCompatActivity {
     NavigationView navigationView;
     Button creditCard;
     TextView myAcc;
-    String uname,name,accNo,balance;
+    String uname,name,accNo,balance,Branch;
     TextView bal,acc,branch,Name;
+    ProgressDialog progress;
+    View containerView;
+
 
     //Database
     DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-       // Toast.makeText(this, uname, Toast.LENGTH_LONG).show();
+        //change the topbar title
+        getSupportActionBar().setTitle("Dashboard");
+
+        // Toast.makeText(this, uname, Toast.LENGTH_LONG).show();
         bal = findViewById(R.id.accNo);
         acc = findViewById(R.id.balance);
         Name = findViewById(R.id.pay);
+        branch = findViewById(R.id.branch);
 
         creditCard = findViewById(R.id.creditCard);
         navigationView = findViewById(R.id.drawerNavigation);
-        //change the topbar title
-        getSupportActionBar().setTitle("Dashboard");
+
+
+
+        progress = new ProgressDialog(dashboard.this,R.style.MyAlertDialogStyle);
+        progress.setTitle("Loading");
+        progress.setMessage("Wait while loading...");
+        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+        progress.show();
 
 
         //for side drawer
@@ -60,11 +86,11 @@ public class dashboard extends AppCompatActivity {
 
 
 
+        /*
+         Get user details from DB
+         */
 
-
-        //-------get name---------------------
-        uname = getIntent().getStringExtra("uname");
-
+        uname = SaveSharedPreference.getUserName(dashboard.this);
         Query query = dbRef.child("User").orderByChild("uname").equalTo(uname);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -74,10 +100,17 @@ public class dashboard extends AppCompatActivity {
                         name = issue.child("Name").getValue().toString();
                         accNo = issue.child("account").getValue().toString();
                         balance = issue.child("balance").getValue().toString();
+                        Branch = issue.child("branch").getValue().toString();
+
 
                         acc.setText(accNo);
                         bal.setText("LKR "+balance);
                         Name.setText(name);
+                        branch.setText(Branch);
+                        if(!name.equals("") && !accNo.equals("") && !balance.equals("")){
+
+                            progress.dismiss();
+                        }
                         break;
                     }
 
@@ -99,11 +132,10 @@ public class dashboard extends AppCompatActivity {
 
                 if(id == R.id.dashboard){
 
-                   drawer.closeDrawers();
+                    drawer.closeDrawers();
                 }else if(id == R.id.transaction){
 
                     Intent i = new Intent(dashboard.this,MainActivity.class);
-                    i.putExtra("accountNo",uname);
                     startActivity(i);
 
                 }
@@ -113,6 +145,11 @@ public class dashboard extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+
+    }
 
     //menu on top bar
     @Override
@@ -129,9 +166,6 @@ public class dashboard extends AppCompatActivity {
         int id = item.getItemId();
 
 
-        if (id == R.id.logout) {
-            startActivity(new Intent(dashboard.this, Login.class));
-        }
 
         if (drawerToggle.onOptionsItemSelected(item)) {
             return true;
@@ -144,6 +178,9 @@ public class dashboard extends AppCompatActivity {
 
 
     }
+
+
+
 
 
 }

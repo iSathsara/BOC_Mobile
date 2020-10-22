@@ -68,7 +68,7 @@ public class addBiller extends AppCompatActivity implements AdapterView.OnItemSe
 
         navigationView = findViewById(R.id.drawerNavigation);
         //change the topbar title
-        getSupportActionBar().setTitle("Add Biller");
+        getSupportActionBar().setTitle("Transactions");
 
 
         //for side drawer
@@ -132,12 +132,7 @@ public class addBiller extends AppCompatActivity implements AdapterView.OnItemSe
         int id = item.getItemId();
 
 
-        if (id == R.id.help) {
 
-
-            //Toast.makeText(dashboard.this, "Action clicked", Toast.LENGTH_LONG).show();
-
-        }
 
         if (drawerToggle.onOptionsItemSelected(item)) {
             return true;
@@ -169,7 +164,7 @@ public class addBiller extends AppCompatActivity implements AdapterView.OnItemSe
        }else{
             AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
             dlgAlert.setMessage("Please fill required fields");
-            dlgAlert.setIcon(R.drawable.ic_error_black_24dp);
+            dlgAlert.setIcon(R.drawable.empty_warning);
             dlgAlert.setTitle("Alert!!");
             dlgAlert.setPositiveButton("OK", null);
             dlgAlert.setCancelable(true);
@@ -203,7 +198,7 @@ public class addBiller extends AppCompatActivity implements AdapterView.OnItemSe
                     if(!item.equals("Select")){
                        // Toast.makeText(addBiller.this,"3", Toast.LENGTH_LONG).show();
                         getBillerNames(item);
-                        progress = new ProgressDialog(addBiller.this);
+                        progress = new ProgressDialog(addBiller.this,R.style.MyAlertDialogStyle);
                         progress.setTitle("Loading");
                         progress.setMessage("Wait while loading...");
                         progress.setCancelable(false); // disable dismiss by tapping outside of the dialog

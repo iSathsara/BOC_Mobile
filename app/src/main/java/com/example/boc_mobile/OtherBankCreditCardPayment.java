@@ -1,5 +1,7 @@
 package com.example.boc_mobile;
 
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,8 +15,20 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.Arrays;
+import java.util.List;
 
 
 public class OtherBankCreditCardPayment extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -25,7 +39,12 @@ public class OtherBankCreditCardPayment extends AppCompatActivity implements Ada
     Spinner payFrom,payTo,paymentMethod;
     EditText amount,description;
     int check = 0;
-    String from,to,method,pamount,des;
+    String from = "Select",to = "Select",method = "Select",pamount,des;
+
+    String[] nameArray = new String[2];
+
+    //Database
+    DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -34,9 +53,10 @@ public class OtherBankCreditCardPayment extends AppCompatActivity implements Ada
         setContentView(R.layout.activity_other_bank_credit_card_payment);
 
         // setting up toolbar
-        Toolbar trans_toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(trans_toolbar);
         getSupportActionBar().setTitle("Transactions");
+
+        //Get customer name from DB
+        getCustomerName();
 
         //backToTransMenu = (Button) findViewById(R.id.obcp_cancel_btn);
         continueButton = (Button) findViewById(R.id.obcp_cont_btn);
@@ -65,15 +85,14 @@ public class OtherBankCreditCardPayment extends AppCompatActivity implements Ada
             }
         });
 
-        uname = getIntent().getStringExtra("accNo");
 
 
-        //add items to spinners
-        ArrayAdapter<CharSequence> nameSequence = ArrayAdapter.createFromResource(this,R.array.customerIsuru,android.R.layout.simple_spinner_item);
-        nameSequence.notifyDataSetChanged();
-        nameSequence.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        payFrom.setAdapter(nameSequence);
-        payFrom.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) OtherBankCreditCardPayment.this);
+
+        /**
+         * add items to spinners
+         */
+
+
 
         ArrayAdapter<CharSequence> payto = ArrayAdapter.createFromResource(this,R.array.payTo,android.R.layout.simple_spinner_item);
         payto.notifyDataSetChanged();
@@ -89,20 +108,46 @@ public class OtherBankCreditCardPayment extends AppCompatActivity implements Ada
 
     }
 
-    // method to goto confirm transaction
+    /**
+     * method to goto confirm transaction
+      */
+
     private void gotoConfirm(){
+
 
         pamount = amount.getText().toString();
         des = description.getText().toString();
-        Intent intent = new Intent(this, OtherBankCreditConfirm.class);
-        intent.putExtra("accountNo",uname);
-        intent.putExtra("to",to);
-        intent.putExtra("from",from);
-        intent.putExtra("amount",pamount);
-        intent.putExtra("method",method);
-        intent.putExtra("description",des);
 
-        startActivity(intent);
+       if(to.equals("Select") || from.equals("Select") || method.equals("Select") || pamount.equals("") || des.equals("")){
+
+          /*
+             Empty fields
+           */
+
+            androidx.appcompat.app.AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
+            dlgAlert.setMessage("Please fill required fields");
+            dlgAlert.setIcon(R.drawable.empty_warning);
+            dlgAlert.setTitle("Alert!!");
+            dlgAlert.setPositiveButton("OK", null);
+            dlgAlert.setCancelable(true);
+            dlgAlert.create().show();
+
+        }else{
+
+
+            Intent intent = new Intent(this, OtherBankCreditConfirm.class);
+            intent.putExtra("to",to);
+            intent.putExtra("from",from);
+            intent.putExtra("amount",pamount);
+            intent.putExtra("method",method);
+            intent.putExtra("description",des);
+
+            startActivity(intent);
+        }
+
+
+
+
     }
 
 
@@ -126,19 +171,7 @@ public class OtherBankCreditCardPayment extends AppCompatActivity implements Ada
                 startActivity(intent);
                 return true;
 
-            case R.id.help:
 
-                // implement function here
-                Toast.makeText(this, "help selected", Toast.LENGTH_LONG).show();
-                return true;
-
-            case R.id.logout2:
-
-                // implement function here
-                //Toast.makeText(this, "Logout selected", Toast.LENGTH_LONG).show();
-                Intent intent2 = new Intent(this, Login.class);
-                startActivity(intent2);
-                return true;
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -184,6 +217,57 @@ public class OtherBankCreditCardPayment extends AppCompatActivity implements Ada
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+
+
+    public void getCustomerName(){
+
+        uname = SaveSharedPreference.getUserName(OtherBankCreditCardPayment.this);
+
+        final ProgressDialog progress = new ProgressDialog(OtherBankCreditCardPayment.this,R.style.MyAlertDialogStyle);
+        progress.setTitle("Loading");
+        progress.setMessage("Wait while loading...");
+        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+        progress.show();
+
+         /*
+          DB query
+         */
+
+        Query query = dbRef.child("User").orderByChild("uname").equalTo(uname);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+
+                    String customer;
+
+                    for (DataSnapshot issue : dataSnapshot.getChildren()) {
+                        customer = issue.child("Name").getValue().toString();
+
+                        nameArray[0] = "Select";
+                        nameArray[1] = customer;
+                        break;
+                    }
+
+
+                    if (nameArray.length > 0) {
+                        ArrayAdapter nameSequence = new ArrayAdapter<>(OtherBankCreditCardPayment.this, android.R.layout.simple_list_item_1, nameArray);
+                        nameSequence.notifyDataSetChanged();
+                        nameSequence.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        payFrom.setAdapter(nameSequence);
+                        payFrom.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) OtherBankCreditCardPayment.this);
+                        progress.dismiss();
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        }  );
     }
 }
 

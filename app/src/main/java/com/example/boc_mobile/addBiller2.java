@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,7 +28,7 @@ public class addBiller2 extends AppCompatActivity {
     NavigationView navigationView;
 
     TextView customer,category,biller,acc,type;
-    String customerName,billerCategory,billerName,accountNumber,bType;
+    String customerName,billerCategory,billerName,accountNumber,bType,uname;
 
     Dialog dialog,popup;
 
@@ -47,8 +48,9 @@ public class addBiller2 extends AppCompatActivity {
         cancelPopup = popup.findViewById(R.id.popupCancel);
         popup.setCanceledOnTouchOutside(false);
 
-        //---get details from prevoius activity-----------
-
+        //---get details from previous activity-----------
+        uname = SaveSharedPreference.getUserName(addBiller2.this);
+        Toast.makeText(addBiller2.this,uname, Toast.LENGTH_LONG).show();
         customerName = getIntent().getStringExtra("customer");
         billerCategory = getIntent().getStringExtra("category");
         billerName = getIntent().getStringExtra("biller");
@@ -77,7 +79,7 @@ public class addBiller2 extends AppCompatActivity {
 
         navigationView = findViewById(R.id.drawerNavigation);
         //change the topbar title
-        getSupportActionBar().setTitle("Add Biller");
+        getSupportActionBar().setTitle("Transactions");
 
 
         //for side drawer
@@ -126,12 +128,7 @@ public class addBiller2 extends AppCompatActivity {
         int id = item.getItemId();
 
 
-        if (id == R.id.help) {
 
-
-            //Toast.makeText(dashboard.this, "Action clicked", Toast.LENGTH_LONG).show();
-
-        }
 
         if (drawerToggle.onOptionsItemSelected(item)) {
             return true;
@@ -150,8 +147,7 @@ public void confirmButtonClick(View view){
 
     Biller biller = new Biller();
 
-    biller.setCustomerId("1");
-    biller.setCustomerName(customerName);
+    biller.setuname(uname);
     biller.setAccNo(accountNumber);
     biller.setBiller(billerName);
     biller.setBillerCategory(billerCategory);

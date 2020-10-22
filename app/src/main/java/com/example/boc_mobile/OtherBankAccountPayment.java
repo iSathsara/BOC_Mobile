@@ -6,6 +6,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -23,6 +25,11 @@ public class OtherBankAccountPayment extends AppCompatActivity {
     private ActionBarDrawerToggle drawerToggle;
     private NavigationView navigationView;
 
+    private Spinner pay,source;
+    private EditText description_text,amount_text;
+    private String to,from,description;
+    private int amount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +44,12 @@ public class OtherBankAccountPayment extends AppCompatActivity {
         drawer.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        pay = findViewById(R.id.obcp_payTo_spinner2);
+        source = findViewById(R.id.obcp_payFrom_spinner2);
+        description_text = findViewById(R.id.obcp_amount_et2);
+        amount_text = findViewById(R.id.obcp_desc_et2);
+
 
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -96,19 +109,7 @@ public class OtherBankAccountPayment extends AppCompatActivity {
                 startActivity(intent);
                 return true;
 
-            case R.id.help:
 
-                // implement function here
-                Toast.makeText(this, "help selected", Toast.LENGTH_LONG).show();
-                return true;
-
-            case R.id.logout2:
-
-                // implement function here
-                //Toast.makeText(this, "Logout selected", Toast.LENGTH_LONG).show();
-                Intent intent2 = new Intent(this, Login.class);
-                startActivity(intent2);
-                return true;
 
             default:
                 return super.onOptionsItemSelected(item);

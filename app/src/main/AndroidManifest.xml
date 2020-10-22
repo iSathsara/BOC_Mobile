@@ -9,8 +9,38 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".OtherBankAccountConfirm"></activity>
+        <activity android:name="com.example.boc_mobile.OtherBankAccountConfirm"></activity>
+        <activity android:name="com.example.boc_mobile.dashboard"
+            android:exported="true"/>
+        <activity android:name="com.example.boc_mobile.addBiller"
+            android:exported="true"/>
+        <activity android:name="com.example.boc_mobile.addBiller2"
+            android:exported="true"/>
+        <activity android:name="com.example.boc_mobile.biller_list"
+            android:exported="true"/>
+        <activity android:name="com.example.boc_mobile.billPayment"
+            android:exported="true"/>
+        <activity android:name="com.example.boc_mobile.billPayment2"
+            android:exported="true"/>
+        <activity android:name="com.example.boc_mobile.billPayment3"
+            android:exported="true"/>
+        <activity
+            android:name="com.example.boc_mobile.OtherBankCreditConfirm"
+            android:exported="true" />
+        <activity
+            android:name="com.example.boc_mobile.OtherBankCreditCardPayment"
+            android:exported="true" />
+
+        <activity
+            android:name="com.example.boc_mobile.confirmThirdPatyTransaction"
+            android:exported="true" />
+        <activity
+            android:name="com.example.boc_mobile.OtherBankAccountPayment"
+            android:exported="true" />
         <activity android:name=".MainActivity">
+        </activity>
+
+        <activity android:name="com.example.boc_mobile.Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

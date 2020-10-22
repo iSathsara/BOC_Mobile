@@ -35,7 +35,7 @@ public class billPayment extends AppCompatActivity implements AdapterView.OnItem
     NavigationView navigationView;
     Spinner customer,billerSpinner;
     Button next,cancel,addBiller;
-    String name,biller,accNo;
+    String name,biller,accNo,uname;
     ArrayList<String> billList = new ArrayList<>();
     int check = 0;
 
@@ -49,7 +49,7 @@ public class billPayment extends AppCompatActivity implements AdapterView.OnItem
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bill_payment);
 
-        accNo = getIntent().getStringExtra("accNo");
+        uname = SaveSharedPreference.getUserName(billPayment.this);
 
 
         name = "Select";
@@ -64,7 +64,7 @@ public class billPayment extends AppCompatActivity implements AdapterView.OnItem
 
         navigationView = findViewById(R.id.drawerNavigation);
         //change the topbar title
-        getSupportActionBar().setTitle("Bill Payments");
+        getSupportActionBar().setTitle("Transactions");
 
 
         //for side drawer
@@ -108,12 +108,7 @@ public class billPayment extends AppCompatActivity implements AdapterView.OnItem
         int id = item.getItemId();
 
 
-        if (id == R.id.help) {
 
-
-            //Toast.makeText(dashboard.this, "Action clicked", Toast.LENGTH_LONG).show();
-            
-        }
 
         if (drawerToggle.onOptionsItemSelected(item)) {
             return true;
@@ -174,7 +169,7 @@ public class billPayment extends AppCompatActivity implements AdapterView.OnItem
 
     public void getBillerNames(String name){
 
-        Query query = dbRef.child("Biller").orderByChild("customerName").equalTo(name);
+        Query query = dbRef.child("Biller").orderByChild("uname").equalTo(uname);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -225,7 +220,7 @@ public class billPayment extends AppCompatActivity implements AdapterView.OnItem
         }else{
             AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
             dlgAlert.setMessage("Please fill required fields");
-            dlgAlert.setIcon(R.drawable.ic_error_black_24dp);
+            dlgAlert.setIcon(R.drawable.empty_warning);
             dlgAlert.setTitle("Alert!!");
             dlgAlert.setPositiveButton("OK", null);
             dlgAlert.setCancelable(true);

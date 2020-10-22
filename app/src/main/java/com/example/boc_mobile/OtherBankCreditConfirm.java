@@ -42,7 +42,7 @@ public class OtherBankCreditConfirm extends AppCompatActivity {
 
 
 
-        uname =  getIntent().getStringExtra("accountNo");
+        uname =  SaveSharedPreference.getUserName(OtherBankCreditConfirm.this);
         from = getIntent().getStringExtra("from");
         to= getIntent().getStringExtra("to");
         method = getIntent().getStringExtra("method");
@@ -84,6 +84,9 @@ public class OtherBankCreditConfirm extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                /*
+                  Update balance
+                 */
                 Query query = dbRef.child("User").orderByChild("uname").equalTo(uname);
 
                 query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -123,6 +126,21 @@ public class OtherBankCreditConfirm extends AppCompatActivity {
                 });
 
 
+                /*
+                  Save details
+                 */
+                DatabaseReference db = FirebaseDatabase.getInstance().getReference().child("CrediCardPayments");
+
+                CreditCardPayments payments = new CreditCardPayments();
+
+                payments.setUname(uname);
+                payments.setPayee(to);
+                payments.setCustomerName(from);
+                payments.setAmount(Integer.parseInt(pamount));
+                payments.setDescription(des);
+                payments.setMethod(method);
+
+                db.push().setValue(payments);
 
                 AlertDialog.Builder alert = new AlertDialog.Builder(OtherBankCreditConfirm.this);
 

@@ -63,7 +63,7 @@ public class billPayment2 extends AppCompatActivity {
 
         navigationView = findViewById(R.id.drawerNavigation);
         //change the topbar title
-        getSupportActionBar().setTitle("Bill Payments");
+        getSupportActionBar().setTitle("Transactions");
 
 
         //for side drawer
@@ -105,12 +105,7 @@ public class billPayment2 extends AppCompatActivity {
         int id = item.getItemId();
 
 
-        if (id == R.id.help) {
 
-
-            //Toast.makeText(dashboard.this, "Action clicked", Toast.LENGTH_LONG).show();
-
-        }
 
         if (drawerToggle.onOptionsItemSelected(item)) {
             return true;

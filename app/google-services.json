@@ -1,0 +1,180 @@
+{
+  "project_info": {
+    "project_number": "843082504801",
+    "firebase_url": "https://bocmobilebanking-34909.firebaseio.com",
+    "project_id": "bocmobilebanking-34909",
+    "storage_bucket": "bocmobilebanking-34909.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:843082504801:android:ec2bd7357f120e704d6820",
+        "android_client_info": {
+          "package_name": "com.example.bocApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "843082504801-tsui8arjn5pvot7ssqbi87tmfler1gs1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADEOC3bD5tYszjmCMZ3PRo0fNGxF0Jw0A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "843082504801-tsui8arjn5pvot7ssqbi87tmfler1gs1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:843082504801:android:c1a7bfcb109189fd4d6820",
+        "android_client_info": {
+          "package_name": "com.example.boc_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "843082504801-qb49j243acheglt6f5ul3534rpm2gn5h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.boc_app",
+            "certificate_hash": "cf5d98e90855f7af677265d6aa06822c1c6d006e"
+          }
+        },
+        {
+          "client_id": "843082504801-tsui8arjn5pvot7ssqbi87tmfler1gs1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADEOC3bD5tYszjmCMZ3PRo0fNGxF0Jw0A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "843082504801-tsui8arjn5pvot7ssqbi87tmfler1gs1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:843082504801:android:06eebbd95e0bbfa44d6820",
+        "android_client_info": {
+          "package_name": "com.example.boc_app1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "843082504801-tsui8arjn5pvot7ssqbi87tmfler1gs1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADEOC3bD5tYszjmCMZ3PRo0fNGxF0Jw0A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "843082504801-tsui8arjn5pvot7ssqbi87tmfler1gs1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:843082504801:android:cf0d027361d34b3a4d6820",
+        "android_client_info": {
+          "package_name": "com.example.boc_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "843082504801-6u4io7obs1vbk65pbo96gbsdr011aqvu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.boc_mobile",
+            "certificate_hash": "ff93095b4cadd2ed26f9771e028776840aa1d954"
+          }
+        },
+        {
+          "client_id": "843082504801-tsui8arjn5pvot7ssqbi87tmfler1gs1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADEOC3bD5tYszjmCMZ3PRo0fNGxF0Jw0A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "843082504801-tsui8arjn5pvot7ssqbi87tmfler1gs1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:843082504801:android:59200a9099a0630a4d6820",
+        "android_client_info": {
+          "package_name": "com.example.bocmobilebanking"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "843082504801-n9qf13untmkb0p32ccg6johadpbtkbcg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bocmobilebanking",
+            "certificate_hash": "ff93095b4cadd2ed26f9771e028776840aa1d954"
+          }
+        },
+        {
+          "client_id": "843082504801-tsui8arjn5pvot7ssqbi87tmfler1gs1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADEOC3bD5tYszjmCMZ3PRo0fNGxF0Jw0A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "843082504801-tsui8arjn5pvot7ssqbi87tmfler1gs1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -28,7 +28,7 @@ public class confirmThirdPatyTransaction extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_third_party_account_payment);
+        //setContentView(R.layout.activity_third_party_account_payment);
 
         // setting up toolbar
         Toolbar trans_toolbar = findViewById(R.id.toolbar);

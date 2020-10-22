@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    String accNo;
 
 
     @Override
@@ -38,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        accNo = getIntent().getStringExtra("accountNo");
 
         // setting up toolbar
         toolbar = findViewById(R.id.toolbar);
@@ -125,7 +123,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void launchOtherBankCreditPay(){
         Intent intent = new Intent(this, OtherBankCreditCardPayment.class);
-        intent.putExtra("accNo",accNo);
         startActivity(intent);
     }
 
@@ -135,15 +132,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void launchThirdPartyAccountTransfer(){
-        Intent intent = new Intent(this, ThirdPartyTransaction.class);
-        intent.putExtra("accNo",accNo);
-        startActivity(intent);
+        //Intent intent = new Intent(this, ThirdPartyTransaction.class);
+        //intent.putExtra("accNo",accNo);
+        //startActivity(intent);
     }
 
 
     private void launchBillPayments(){
         Intent intent = new Intent(this, billPayment.class);
-        intent.putExtra("accNo",accNo);
         startActivity(intent);
     }
 
