@@ -136,6 +136,7 @@ public class OtherBankCreditCardPayment extends AppCompatActivity implements Ada
                     drawer.closeDrawers();
 
                 }else if(id == R.id.transaction){
+                    startActivity(new Intent(OtherBankCreditCardPayment.this, MainActivity.class));
                     drawer.closeDrawers();
                 }
                 else if(id == R.id.profile){
