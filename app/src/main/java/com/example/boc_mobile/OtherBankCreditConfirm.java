@@ -103,7 +103,9 @@ public class OtherBankCreditConfirm extends AppCompatActivity {
                     drawer.closeDrawers();
 
                 }else if(id == R.id.transaction){
+                    startActivity(new Intent(OtherBankCreditConfirm.this, MainActivity.class));
                     drawer.closeDrawers();
+                    
                 }
                 else if(id == R.id.profile){
                     Toast.makeText( OtherBankCreditConfirm.this,"Profile Selected", Toast.LENGTH_SHORT).show();
