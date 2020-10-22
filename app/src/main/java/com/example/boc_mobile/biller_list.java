@@ -100,7 +100,24 @@ public class biller_list extends AppCompatActivity {
                 int id = item.getItemId();
 
                 if(id == R.id.dashboard){
+                    Intent i = new Intent(biller_list.this,dashboard.class);
+                    startActivity(i);
+                    drawer.closeDrawers();
 
+                }else if(id == R.id.transaction){
+                    Intent i = new Intent(biller_list.this,MainActivity.class);
+                    startActivity(i);
+                    drawer.closeDrawers();
+                }
+                else if(id == R.id.profile){
+                    Toast.makeText(biller_list.this,"Profile Selected", Toast.LENGTH_SHORT).show();
+                    //startActivity(new Intent(MainActivity.this, myprofile.class));
+                    drawer.closeDrawers();
+                }
+
+                else if(id == R.id.more){
+                    Intent i = new Intent(biller_list.this,moreActivityFunction.class);
+                    startActivity(i);
                     drawer.closeDrawers();
                 }
                 return true;

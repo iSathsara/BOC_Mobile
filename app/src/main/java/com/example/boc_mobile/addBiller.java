@@ -103,6 +103,8 @@ public class addBiller extends AppCompatActivity implements AdapterView.OnItemSe
                     drawer.closeDrawers();
 
                 }else if(id == R.id.transaction){
+                    Intent i = new Intent(addBiller.this,MainActivity.class);
+                    startActivity(i);
                     drawer.closeDrawers();
                 }
                 else if(id == R.id.profile){

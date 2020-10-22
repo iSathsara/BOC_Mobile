@@ -105,6 +105,8 @@ public class addBiller2 extends AppCompatActivity {
                     drawer.closeDrawers();
 
                 }else if(id == R.id.transaction){
+                    Intent i = new Intent(addBiller2.this,MainActivity.class);
+                    startActivity(i);
                     drawer.closeDrawers();
                 }
                 else if(id == R.id.profile){
@@ -220,7 +222,7 @@ public void confirmButtonClick(View view){
 }
 
     private void launchDashboard(){
-        Intent intent = new Intent(this, dashboard.class);
+        Intent intent = new Intent(this, billPayment.class);
         startActivity(intent);
     }
 

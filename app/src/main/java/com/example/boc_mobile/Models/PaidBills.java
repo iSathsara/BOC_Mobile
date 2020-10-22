@@ -1,4 +1,4 @@
-package com.example.boc_mobile;
+package com.example.boc_mobile.Models;
 
 public class PaidBills {
 
