@@ -20,6 +20,11 @@
     <string name="close">close navigation drawer</string>
     <string name="third_party_account">Third Party BOC Payment Confirm</string>
     <string name="transaction_page_title">Transactions</string>
+    <string name="more_page_title">More Options</string>
+    <string name="offers_btn">Offers</string>
+    <string name="contacus_btn">Contact US</string>
+    <string name="help_btn">Help</string>
+    <string name="logout_btn">Logout</string>
 
     <string-array name="planets_array">
         <item>Select</item>

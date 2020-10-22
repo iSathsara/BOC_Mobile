@@ -15,10 +15,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
+
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,18 +29,19 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+
 public class billPayment3 extends AppCompatActivity {
 
 
     private DrawerLayout drawer;
     private ActionBarDrawerToggle drawerToggle;
     NavigationView navigationView;
-    String customerName,billerName,accountNumber,invoice,pamount,userAccount;
+    String customerName,billerName,accountNumber,invoice,pamount,userAccount,uname;
     TextView customer,payee,amount,invoiceNum,accNo;
-    int balance;
+    int balance,flag = 0;
 
     //Database
-    DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("BillPayments");
 
     Dialog popup;
 
@@ -47,8 +51,9 @@ public class billPayment3 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bill_payment3);
+        getSupportActionBar().setTitle("BOC Mobile Banking - Bill Payments");
 
-        userAccount = getIntent().getStringExtra("accNo");
+        //userAccount = getIntent().getStringExtra("accNo");
 
         //---related to popup---------------
         popup = new Dialog(this);
@@ -57,10 +62,11 @@ public class billPayment3 extends AppCompatActivity {
         popup.setCanceledOnTouchOutside(false);
         //---get details from prevoius activity-----------
 
+        uname = SaveSharedPreference.getUserName(billPayment3.this);
         customerName = getIntent().getStringExtra("customer");
-        invoice = getIntent().getStringExtra("invoice");
+        invoice = getIntent().getStringExtra("invoiceNo");
         billerName = getIntent().getStringExtra("biller");
-        accountNumber = getIntent().getStringExtra("account");
+        accountNumber = getIntent().getStringExtra("accNo");
         pamount  = getIntent().getStringExtra("amount");
 
 
@@ -78,9 +84,12 @@ public class billPayment3 extends AppCompatActivity {
         amount.setText(pamount);
         accNo.setText(accountNumber);
 
+
         navigationView = findViewById(R.id.drawerNavigation);
+
         //change the topbar title
         getSupportActionBar().setTitle("Transactions");
+
 
 
         //for side drawer
@@ -97,12 +106,30 @@ public class billPayment3 extends AppCompatActivity {
                 int id = item.getItemId();
 
                 if(id == R.id.dashboard){
+                    Intent i = new Intent(billPayment3.this,dashboard.class);
+                    startActivity(i);
+                    drawer.closeDrawers();
 
+                }else if(id == R.id.transaction){
+                    Intent i = new Intent(billPayment3.this,MainActivity.class);
+                    startActivity(i);
+                    drawer.closeDrawers();
+                }
+                else if(id == R.id.profile){
+                    Toast.makeText(billPayment3.this,"Profile Selected", Toast.LENGTH_SHORT).show();
+                    //startActivity(new Intent(MainActivity.this, myprofile.class));
+                    drawer.closeDrawers();
+                }
+
+                else if(id == R.id.more){
+                    Intent i = new Intent(billPayment3.this,moreActivityFunction.class);
+                    startActivity(i);
                     drawer.closeDrawers();
                 }
                 return true;
             }
         });
+
 
         done.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,6 +182,7 @@ public class billPayment3 extends AppCompatActivity {
 
             }
         });
+
     }
 
     //menu on top bar
@@ -175,6 +203,13 @@ public class billPayment3 extends AppCompatActivity {
 
 
 
+
+        if (id == R.id.logout) {
+            startActivity(new Intent(billPayment3.this, Login.class));
+            finish();
+        }
+
+
         if (drawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
@@ -188,11 +223,12 @@ public class billPayment3 extends AppCompatActivity {
         finish();
     }
 
-    public void confirmButtonClick(View view){
 
+    public void confirmButtonClick(View view){
+        updateAccountBalance();
         PaidBills pb = new PaidBills();
 
-        pb.setCustomerId(customerName);
+        pb.setCustomerId(uname);
         pb.setAccNo(accountNumber);
         pb.setBiller(billerName);
         pb.setInvoice(invoice);
@@ -200,8 +236,102 @@ public class billPayment3 extends AppCompatActivity {
 
         dbRef.push().setValue(pb);
 
-        popup.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        popup.show();
+        AlertDialog.Builder alert = new AlertDialog.Builder(billPayment3.this);
+
+        alert.setTitle("SUCCESSFUL");
+        alert.setIcon(R.drawable.transaction_okay);
+        alert.setMessage("The amount is transferred successfully");
+        alert.setPositiveButton("DONE", null);
+        alert.setNegativeButton("Another Transaction", null);
+
+        AlertDialog dialog = alert.create();
+        dialog.show();
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.alert_design);
+
+        //updateAccountBalance();
+
+        // this will change the default behaviour of buttons
+        Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        positiveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(flag == 1){
+
+                    launchDashboard();
+                }
+
+            }
+        });
+
+        // this will change the default behaviour of buttons
+        Button negativeButton = dialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+        negativeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                launchOtherTransaction();
+
+            }
+        });
 
     }
+
+    private void launchDashboard(){
+        Intent intent = new Intent(this, dashboard.class);
+        startActivity(intent);
+    }
+
+    // intent for launch other transaction
+    private void launchOtherTransaction(){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+
+    /**
+     * Update balance
+     */
+
+    public void updateAccountBalance(){
+
+        final DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+        Query query = db.child("User").orderByChild("uname").equalTo(uname);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if (dataSnapshot.exists()) {
+
+                    String bal;
+                    int newBal;
+
+
+                    for (DataSnapshot issue : dataSnapshot.getChildren()) {
+                        String child = issue.getKey();
+                        bal = issue.child("balance").getValue().toString();
+
+
+                        balance =Integer.parseInt(bal);
+                        newBal = balance-Integer.parseInt(pamount);
+
+
+                        db.child("User").child(child).child("balance").setValue(newBal);
+                        flag = 1;
+
+                        break;
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+    }
+
 }

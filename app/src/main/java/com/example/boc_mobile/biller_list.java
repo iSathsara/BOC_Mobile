@@ -83,7 +83,7 @@ public class biller_list extends AppCompatActivity {
 
         navigationView = findViewById(R.id.drawerNavigation);
         //change the topbar title
-        getSupportActionBar().setTitle("Transactions");
+        getSupportActionBar().setTitle("Biller List");
 
 
         //for side drawer

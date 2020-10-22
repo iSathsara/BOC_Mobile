@@ -29,7 +29,6 @@
             android:layout_marginBottom="8dp"
             android:drawablePadding="15dp"
             android:gravity="center"
-            android:background="@color/colorSecondary"
             android:text="Add Biller"
             android:textColor="#000000"
             android:textSize="35sp"
@@ -64,7 +63,6 @@
                     android:layout_marginRight="8dp"
                     android:layout_marginBottom="10dp"
                     android:background="@drawable/rounded_button"
-                    android:backgroundTint="@color/colorSecondary"
                     android:clickable="true"
                     android:drawableLeft="@drawable/ic_view_list_black_24dp"
                     android:drawablePadding="7dp"
@@ -228,36 +226,21 @@
                             android:layout_width="144dp"
                             android:layout_height="56dp"
                             android:layout_marginStart="185dp"
-                            android:layout_marginLeft="185dp"
                             android:layout_marginTop="498dp"
                             android:layout_marginEnd="33dp"
-                            android:layout_marginRight="33dp"
                             android:layout_marginBottom="16dp"
                             android:background="@drawable/rounded_button"
                             android:backgroundTint="#ffb429"
                             android:clickable="true"
                             android:onClick="nextButtonClick"
-                            android:text="Next"
+                            android:text="Proceed"
                             android:textSize="16sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <Button
-                            android:id="@+id/popupCancel"
-                            android:layout_width="144dp"
-                            android:layout_height="56dp"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginLeft="20dp"
-                            android:background="@drawable/rounded_button"
-                            android:backgroundTint="#ffb429"
-                            android:clickable="true"
-                            android:onClick="CancelButtonclick"
-                            android:text="Cancel"
-                            android:textSize="16sp"
-                            app:layout_constraintBaseline_toBaselineOf="@+id/pay"
-                            app:layout_constraintStart_toStartOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="1.0" />
 
 
                         <RelativeLayout

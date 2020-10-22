@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OtherBankAccountPayment"
+    tools:context=".ThirdPartyTransaction"
     android:id="@+id/drawer">
 
 
@@ -19,7 +19,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/other_bank_acc_payment"
+            android:text="@string/add_third_party_boc"
             android:textAlignment="center"
             android:textColor="@color/textColor"
             app:fontFamily="@font/acme"
@@ -42,7 +42,7 @@
                 android:layout_marginTop="25dp"
                 android:background="@color/cardBack1"
                 android:paddingTop="20dp"
-                android:paddingBottom="20dp">
+                android:paddingBottom="60dp">
 
                 <TextView
                     android:id="@+id/obcp_pay_to_tv"
@@ -56,7 +56,7 @@
                     android:paddingLeft="20dp" />
 
                 <Spinner
-                    android:id="@+id/oba_payTo_spinner"
+                    android:id="@+id/tp_payTo_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:spinnerMode="dropdown"
@@ -79,7 +79,7 @@
                     />
 
                 <Spinner
-                    android:id="@+id/oba_payFrom_spinner"
+                    android:id="@+id/tp_payFrom_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:spinnerMode="dropdown"
@@ -101,7 +101,7 @@
                     />
 
                 <EditText
-                    android:id="@+id/oba_amount_editText"
+                    android:id="@+id/tp_amount_editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -123,7 +123,7 @@
                     android:paddingLeft="20dp" />
 
                 <EditText
-                    android:id="@+id/oba_desc_editText"
+                    android:id="@+id/tp_desc_editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -148,8 +148,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="50dp"
-                        android:layout_marginRight="50dp"
+                        android:layout_marginLeft="70dp"
+                        android:layout_marginRight="70dp"
                         android:background="@drawable/proceed_button_design"
                         android:text="Continue"
                         android:layout_weight="1"/>

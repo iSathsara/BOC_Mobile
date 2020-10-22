@@ -1,18 +1,20 @@
-package com.example.boc_mobile;
+package com.example.boc_mobile.Models;
 
-public class Transactions {
+public class CreditCardPayments {
 
     public String uname;
     public String customerName;
     public String method;
     public int amount;
-    public String payeeAcc;
-    public String payeeName;
-    public String invoice;
     public String description;
+    public String payee;
 
-    public Transactions() {
+    public CreditCardPayments() {
 
+    }
+
+    public void setPayee(String payee) {
+        this.payee = payee;
     }
 
     public void setUname(String uname) {
@@ -34,4 +36,7 @@ public class Transactions {
     public void setDescription(String description) {
         this.description = description;
     }
+
+
+
 }

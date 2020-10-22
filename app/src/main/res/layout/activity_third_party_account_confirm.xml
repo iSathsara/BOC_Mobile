@@ -24,8 +24,9 @@
             android:text="@string/third_party_account"
             android:textAlignment="center"
             android:textColor="@color/textColor"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp"
+            android:fontFamily="@font/acme"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
             android:textSize="25dp"
             android:textStyle="bold" />
 
@@ -47,6 +48,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@color/cardBack1"
                         android:orientation="vertical">
 
                         <TextView
@@ -183,13 +185,14 @@
                     android:paddingBottom="10dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:layout_marginTop="15dp" >
+                    android:layout_marginTop="5dp" >
 
                     <Button
                         android:id="@+id/tp_prcd_btn"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="50dp"
+                        android:layout_gravity="center"
                         android:layout_marginLeft="50dp"
                         android:background="@drawable/proceed_button_design"
                         android:paddingLeft="5dp"

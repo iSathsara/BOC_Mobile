@@ -11,17 +11,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
 import com.google.android.material.navigation.NavigationView;
 
 
 public class MainActivity extends AppCompatActivity {
 
 
-    private Button addBeneficieries;
-    private Button thirdPartyTransaction;
-    private Button otherBankCreditTransBtn;
-    private Button otherBankAccTransBtn,bill_payment;
-    private Toolbar toolbar;
+    private Button addBeneficieries,thirdPartyTransaction,otherBankCreditTransBtn,bill_payment,otherBankAccTransBtn;
 
     private DrawerLayout drawer;
     private ActionBarDrawerToggle drawerToggle;
@@ -38,12 +36,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        // setting up toolbar
-        toolbar = findViewById(R.id.toolbar);
         navigationView = findViewById(R.id.drawerNavigation);
-
-        //setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Transacrions");
+        getSupportActionBar().setTitle("BOC Mobile Banking - Transactions");
 
 
         addBeneficieries = findViewById(R.id.add_bene_btn);
@@ -101,7 +95,22 @@ public class MainActivity extends AppCompatActivity {
                 int id = item.getItemId();
 
                 if(id == R.id.dashboard){
+                    Intent i = new Intent(MainActivity.this,dashboard.class);
+                    startActivity(i);
+                    drawer.closeDrawers();
 
+                }else if(id == R.id.transaction){
+                    drawer.closeDrawers();
+                }
+                else if(id == R.id.profile){
+                    Toast.makeText(MainActivity.this,"Profile Selected", Toast.LENGTH_SHORT).show();
+                    //startActivity(new Intent(MainActivity.this, myprofile.class));
+                    drawer.closeDrawers();
+                }
+
+                else if(id == R.id.more){
+                    Intent i = new Intent(MainActivity.this,moreActivityFunction.class);
+                    startActivity(i);
                     drawer.closeDrawers();
                 }
                 return true;
@@ -111,18 +120,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    // close naviation drawer when clicks on back button
-
-    // intent for launch other bank credit card
-
-    /*
-    private void launchAddBeneficieries(){
-
-    }
-    */
 
     private void launchOtherBankCreditPay(){
         Intent intent = new Intent(this, OtherBankCreditCardPayment.class);
+
+        //intent.putExtra("accNo",accNo);
+
         startActivity(intent);
     }
 
@@ -132,14 +135,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void launchThirdPartyAccountTransfer(){
+
         //Intent intent = new Intent(this, ThirdPartyTransaction.class);
         //intent.putExtra("accNo",accNo);
         //startActivity(intent);
+
+        Intent intent = new Intent(this, ThirdPartyTransaction.class);
+        //intent.putExtra("accNo",accNo);
+        startActivity(intent);
+
     }
 
 
     private void launchBillPayments(){
         Intent intent = new Intent(this, billPayment.class);
+
+
+        //intent.putExtra("accNo",accNo);
+
         startActivity(intent);
     }
 
@@ -167,9 +180,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-
-    // set logout function
 
 
 }

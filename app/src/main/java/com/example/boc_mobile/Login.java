@@ -12,6 +12,7 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -19,12 +20,19 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+
 
 public class Login extends AppCompatActivity {
 
     private Button loginbtn;
+
     EditText username,password;
     String uname,pwd;
+
+
     //database
     DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
 
@@ -47,6 +55,13 @@ public class Login extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+
+    }
+
     private void MainMenu(){
 
         uname = username.getText().toString();
@@ -64,6 +79,8 @@ public class Login extends AppCompatActivity {
 
         }else{
 
+
+            SaveSharedPreference.setUserName(Login.this,uname);
             /*
               Progress dialog
              */
@@ -165,6 +182,9 @@ public class Login extends AppCompatActivity {
 
 
         }
+
+
+
 
 
 

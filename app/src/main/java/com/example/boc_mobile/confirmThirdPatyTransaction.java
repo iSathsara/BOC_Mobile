@@ -7,40 +7,72 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.boc_mobile.Models.ThirdPartyTransactions;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class confirmThirdPatyTransaction extends AppCompatActivity {
 
-    private Button confirm,cancel;
+    private Button proceedBtn;
+    private TextView payfrom_view,payto_view,amount_view,desc_view;
+    private String payee,source,description = "",uname,pamount;
+     DrawerLayout drawer;
+     ActionBarDrawerToggle drawerToggle;
+     NavigationView navigationView;
+     int balance,flag = 0;
 
-    private DrawerLayout drawer;
-    private ActionBarDrawerToggle drawerToggle;
-    private NavigationView navigationView;
+    //Database
+    DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("ThirdPartyTransactions");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_third_party_account_payment);
+        setContentView(R.layout.activity_third_party_account_confirm);
 
         // setting up toolbar
-        Toolbar trans_toolbar = findViewById(R.id.toolbar);
-        getSupportActionBar().setTitle("Transactions");
+        //Toolbar trans_toolbar = findViewById(R.id.toolbar);
+        getSupportActionBar().setTitle("BOC Mobile Banking - Transactions");
 
-        confirm = findViewById(R.id.tp_prcd_btn);
 
+        //Get data from intent
+        payee = getIntent().getStringExtra("payee");
+        uname = SaveSharedPreference.getUserName(confirmThirdPatyTransaction.this);
+        source = getIntent().getStringExtra("source");
+        description = getIntent().getStringExtra("description");
+        pamount = getIntent().getStringExtra("amount");
+
+        // buttons
+        proceedBtn = findViewById(R.id.tp_prcd_btn);
+
+        // text fields
+        payto_view = findViewById(R.id.tp_payto_confirm);
+        payto_view.setText(payee);
+        payfrom_view = findViewById(R.id.tp_payfrom_confirm);
+        payfrom_view.setText(source);
+        amount_view = findViewById(R.id.tp_amount_confirm);
+        amount_view.setText(pamount);
+        desc_view = findViewById(R.id.tp_desc_confirm);
+        desc_view.setText(description);
+
+        // navigation view
         navigationView = findViewById(R.id.drawerNavigation);
 
         //for side drawer
         drawer = findViewById(R.id.drawer);
-        drawerToggle = new ActionBarDrawerToggle(this,drawer, R.string.open, R.string.close);
+        drawerToggle = new ActionBarDrawerToggle(confirmThirdPatyTransaction.this,drawer,R.string.open,R.string.close);
         drawer.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -74,9 +106,11 @@ public class confirmThirdPatyTransaction extends AppCompatActivity {
             }
         });
 
-        confirm.setOnClickListener(new View.OnClickListener() {
+        proceedBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                saveDetails();
+
                 AlertDialog.Builder alert = new AlertDialog.Builder(confirmThirdPatyTransaction.this);
 
                 alert.setTitle("SUCCESSFUL");
@@ -89,12 +123,18 @@ public class confirmThirdPatyTransaction extends AppCompatActivity {
                 dialog.show();
                 dialog.getWindow().setBackgroundDrawableResource(R.drawable.alert_design);
 
+                //updateAccountBalance();
+
                 // this will change the default behaviour of buttons
                 Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
                 positiveButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        launchDashboard();
+                        if(flag == 1){
+
+                            launchDashboard();
+                        }
+
                     }
                 });
 
@@ -103,7 +143,9 @@ public class confirmThirdPatyTransaction extends AppCompatActivity {
                 negativeButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        launchOtherTransaction();
+
+                            launchOtherTransaction();
+
                     }
                 });
             }
@@ -135,10 +177,12 @@ public class confirmThirdPatyTransaction extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /*
     private void cancelIntent(){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
+    */
 
     // set logout icon in app bar
     @Override
@@ -151,6 +195,11 @@ public class confirmThirdPatyTransaction extends AppCompatActivity {
     // set logout function
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (drawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+
         switch (item.getItemId()) {
             case R.id.logout:
 
@@ -163,6 +212,73 @@ public class confirmThirdPatyTransaction extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+
+    /**
+     * save details in database
+     */
+
+    public void saveDetails(){
+
+        updateAccountBalance();
+        ThirdPartyTransactions transaction = new ThirdPartyTransactions();
+
+        transaction.setPayee(payee);
+        transaction.setAmount(Integer.parseInt(pamount));
+        transaction.setUname(uname);
+        transaction.setDescription(description);
+        transaction.setName(source);
+
+        dbRef.push().setValue(transaction);
+
+
+    }
+
+    /**
+     * Update balance
+     */
+
+    public void updateAccountBalance(){
+
+        final DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+        Query query = db.child("User").orderByChild("uname").equalTo(uname);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if (dataSnapshot.exists()) {
+
+                    String bal;
+                    int newBal;
+
+
+                    for (DataSnapshot issue : dataSnapshot.getChildren()) {
+                        String child = issue.getKey();
+                        bal = issue.child("balance").getValue().toString();
+
+
+                        balance =Integer.parseInt(bal);
+                        newBal = balance-Integer.parseInt(pamount);
+
+
+                        db.child("User").child(child).child("balance").setValue(newBal);
+                        flag = 1;
+
+                        break;
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
     }
 
 }

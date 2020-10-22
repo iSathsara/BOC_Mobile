@@ -8,6 +8,10 @@
     <color name="cancelBtnColor">#F90000</color>
     <color name="itemColor">#ffffff</color>
     <color name="textColor">#000000</color>
+
     <color name="cardBack1">#E1E1D8</color>
     <color name="loadingColor">#0ccc53</color>
+
+
+
 </resources>

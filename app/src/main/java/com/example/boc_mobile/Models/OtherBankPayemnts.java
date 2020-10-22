@@ -1,15 +1,14 @@
-package com.example.boc_mobile;
+package com.example.boc_mobile.Models;
 
-public class CreditCardPayments {
+public class OtherBankPayemnts {
 
     public String uname;
     public String customerName;
-    public String method;
     public int amount;
     public String description;
     public String payee;
 
-    public CreditCardPayments() {
+    public  OtherBankPayemnts() {
 
     }
 
@@ -25,10 +24,6 @@ public class CreditCardPayments {
         this.customerName = customerName;
     }
 
-    public void setMethod(String method) {
-        this.method = method;
-    }
-
     public void setAmount(int amount) {
         this.amount = amount;
     }
@@ -36,7 +31,5 @@ public class CreditCardPayments {
     public void setDescription(String description) {
         this.description = description;
     }
-
-
 
 }

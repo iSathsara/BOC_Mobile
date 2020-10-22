@@ -11,7 +11,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -20,12 +22,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+/*
 import com.google.firebase.database.*;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+*/
 
 import java.util.Arrays;
 import java.util.List;
+
+
+
 
 public class addBiller extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -37,22 +51,21 @@ public class addBiller extends AppCompatActivity implements AdapterView.OnItemSe
     int flag;
     int check = 0;
     String[] billerArray = {"Select"};
-    String customerName,billerCategory,billerName,type,account;
+    String customerName,billerCategory,billerName,type,account,uname;
     Button viewBiller,next,cancel;
     ProgressDialog progress;
+    String[] nameArray = new String[2];
 
     //Database
     DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
 
-
-
-
-
-   // final ListView listView = (ListView) findViewById(R.id.mobile_list);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_biller);
+
+        uname = SaveSharedPreference.getUserName(addBiller.this);
+        getCustomerName();
 
         accNo = findViewById(R.id.accNo);
         custom = findViewById(R.id.customer);
@@ -85,7 +98,22 @@ public class addBiller extends AppCompatActivity implements AdapterView.OnItemSe
                 int id = item.getItemId();
 
                 if(id == R.id.dashboard){
+                    Intent i = new Intent(addBiller.this,dashboard.class);
+                    startActivity(i);
+                    drawer.closeDrawers();
 
+                }else if(id == R.id.transaction){
+                    drawer.closeDrawers();
+                }
+                else if(id == R.id.profile){
+                    Toast.makeText(addBiller.this,"Profile Selected", Toast.LENGTH_SHORT).show();
+                    //startActivity(new Intent(MainActivity.this, myprofile.class));
+                    drawer.closeDrawers();
+                }
+
+                else if(id == R.id.more){
+                    Intent i = new Intent(addBiller.this,moreActivityFunction.class);
+                    startActivity(i);
                     drawer.closeDrawers();
                 }
                 return true;
@@ -94,19 +122,14 @@ public class addBiller extends AppCompatActivity implements AdapterView.OnItemSe
 
 
 
-        //add items to spinners
+        /*
+          add items to spinners
+         */
         ArrayAdapter<CharSequence> billerSequence = ArrayAdapter.createFromResource(this,R.array.biller_category,android.R.layout.simple_spinner_item);
         billerSequence.notifyDataSetChanged();
         billerSequence.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         billCat.setAdapter(billerSequence);
-       billCat.setOnItemSelectedListener(addBiller.this);
-
-
-        ArrayAdapter<CharSequence> customerSequence = ArrayAdapter.createFromResource(this,R.array.customer,android.R.layout.simple_spinner_item);
-        customerSequence.notifyDataSetChanged();
-        customerSequence.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        custom.setAdapter(customerSequence);
-        custom.setOnItemSelectedListener(addBiller.this);
+        billCat.setOnItemSelectedListener(addBiller.this);
 
 
         ArrayAdapter<CharSequence> billType = ArrayAdapter.createFromResource(this,R.array.billerType,android.R.layout.simple_spinner_item);
@@ -114,6 +137,9 @@ public class addBiller extends AppCompatActivity implements AdapterView.OnItemSe
         billType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         billerType.setAdapter(billType);
         billerType.setOnItemSelectedListener(addBiller.this);
+
+
+
 
     }
 
@@ -134,6 +160,12 @@ public class addBiller extends AppCompatActivity implements AdapterView.OnItemSe
 
 
 
+        if (id == R.id.logout) {
+            startActivity(new Intent(addBiller.this, Login.class));
+            finish();
+        }
+
+
         if (drawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
@@ -141,11 +173,13 @@ public class addBiller extends AppCompatActivity implements AdapterView.OnItemSe
         return super.onOptionsItemSelected(item);
     }
 
+
     public void viewBiller(View view){
 
         Intent i = new Intent(addBiller.this,biller_list.class);
         startActivity(i);
     }
+
 
     public void nextButtonClick(View view){
 
@@ -181,6 +215,7 @@ public class addBiller extends AppCompatActivity implements AdapterView.OnItemSe
         startActivity(i);
 
     }
+
 
 
     @Override
@@ -237,7 +272,9 @@ public class addBiller extends AppCompatActivity implements AdapterView.OnItemSe
 
     }
 
-    @Override
+
+
+    //@Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
@@ -248,7 +285,7 @@ public class addBiller extends AppCompatActivity implements AdapterView.OnItemSe
     public void getBillerNames(String category){
        // Toast.makeText(addBiller.this,category, Toast.LENGTH_LONG).show();
            Query query = dbRef.child("BillerList").orderByChild("category").equalTo(category);
-            query.addListenerForSingleValueEvent(new ValueEventListener() {
+            ((Query) query).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
@@ -285,5 +322,60 @@ public class addBiller extends AppCompatActivity implements AdapterView.OnItemSe
 
 
     }
+
+
+    /**
+     * get customer name
+     */
+
+    public void getCustomerName(){
+
+        uname = SaveSharedPreference.getUserName(addBiller.this);
+        final ProgressDialog progress = new ProgressDialog(addBiller.this,R.style.MyAlertDialogStyle);
+        progress.setTitle("Loading");
+        progress.setMessage("Wait while loading...");
+        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+        progress.show();
+
+         /*
+          DB query
+         */
+
+        Query query = dbRef.child("User").orderByChild("uname").equalTo(uname);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+
+                    String customers;
+
+                    for (DataSnapshot issue : dataSnapshot.getChildren()) {
+                        customers = issue.child("Name").getValue().toString();
+
+                        nameArray[0] = "Select";
+                        nameArray[1] = customers;
+                        break;
+                    }
+
+
+                    if (nameArray.length > 1) {
+                        ArrayAdapter nameSequence = new ArrayAdapter<>(addBiller.this, android.R.layout.simple_list_item_1, nameArray);
+                        nameSequence.notifyDataSetChanged();
+                        nameSequence.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        custom.setAdapter(nameSequence);
+                        custom.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) addBiller.this);
+                        progress.dismiss();
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        }  );
+    }
+
 
 }

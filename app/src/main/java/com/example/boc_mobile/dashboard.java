@@ -23,6 +23,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,15 +31,18 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
+
 
 
 public class dashboard extends AppCompatActivity {
 
     private DrawerLayout drawer;
     private ActionBarDrawerToggle drawerToggle;
-    NavigationView navigationView;
+    private NavigationView navigationView;
     Button creditCard;
     TextView myAcc;
     String uname,name,accNo,balance,Branch;
@@ -48,13 +52,16 @@ public class dashboard extends AppCompatActivity {
 
 
     //Database
+
     DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+        getSupportActionBar().setTitle("BOC Mobile Banking - Dashboard");
 
         //change the topbar title
         getSupportActionBar().setTitle("Dashboard");
@@ -70,11 +77,13 @@ public class dashboard extends AppCompatActivity {
 
 
 
+
         progress = new ProgressDialog(dashboard.this,R.style.MyAlertDialogStyle);
         progress.setTitle("Loading");
         progress.setMessage("Wait while loading...");
         progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
         progress.show();
+
 
 
         //for side drawer
@@ -89,8 +98,8 @@ public class dashboard extends AppCompatActivity {
         /*
          Get user details from DB
          */
-
         uname = SaveSharedPreference.getUserName(dashboard.this);
+
         Query query = dbRef.child("User").orderByChild("uname").equalTo(uname);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -102,9 +111,14 @@ public class dashboard extends AppCompatActivity {
                         balance = issue.child("balance").getValue().toString();
                         Branch = issue.child("branch").getValue().toString();
 
+                        int accountBal = Integer.parseInt(balance);
+
+                        //format balance
+                        DecimalFormat formatter = new DecimalFormat("#,###,###");
+                        String formattedBalance= formatter.format(accountBal);
 
                         acc.setText(accNo);
-                        bal.setText("LKR "+balance);
+                        bal.setText("LKR "+formattedBalance);
                         Name.setText(name);
                         branch.setText(Branch);
                         if(!name.equals("") && !accNo.equals("") && !balance.equals("")){
@@ -132,10 +146,19 @@ public class dashboard extends AppCompatActivity {
 
                 if(id == R.id.dashboard){
 
+
                     drawer.closeDrawers();
                 }else if(id == R.id.transaction){
 
                     Intent i = new Intent(dashboard.this,MainActivity.class);
+                    startActivity(i);
+                   drawer.closeDrawers();
+
+                }else if(id == R.id.transaction){
+
+                    Intent i = new Intent(dashboard.this,MainActivity.class);
+                    //i.putExtra("accountNo",uname);
+
                     startActivity(i);
 
                 }
