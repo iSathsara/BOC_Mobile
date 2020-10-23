@@ -108,8 +108,7 @@ public class addBiller extends AppCompatActivity implements AdapterView.OnItemSe
                     drawer.closeDrawers();
                 }
                 else if(id == R.id.profile){
-                    Toast.makeText(addBiller.this,"Profile Selected", Toast.LENGTH_SHORT).show();
-                    //startActivity(new Intent(MainActivity.this, myprofile.class));
+                    startActivity(new Intent(addBiller.this, UserProfile.class));
                     drawer.closeDrawers();
                 }
 
@@ -160,10 +159,34 @@ public class addBiller extends AppCompatActivity implements AdapterView.OnItemSe
         int id = item.getItemId();
 
         if (id == R.id.logout) {
-            startActivity(new Intent(addBiller.this, Login.class));
-            finish();
-        }
 
+            AlertDialog.Builder alert = new AlertDialog.Builder(addBiller.this);
+
+            alert.setTitle("LOGOUT");
+            alert.setIcon(R.drawable.ic_warning);
+            alert.setMessage("You are about to logout. Please Confirm...");
+            alert.setPositiveButton("Logout", null);
+            alert.setNegativeButton("Cancel", null);
+
+            AlertDialog dialog = alert.create();
+            dialog.show();
+            dialog.getWindow().setBackgroundDrawableResource(R.drawable.alert_design);
+
+
+            // this will change the default behaviour of buttons
+            Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            positiveButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    Intent i = new Intent(addBiller.this, Login.class);
+                    startActivity(i);
+                    finish();
+
+                }
+            });
+
+        }
 
         if (drawerToggle.onOptionsItemSelected(item)) {
             return true;

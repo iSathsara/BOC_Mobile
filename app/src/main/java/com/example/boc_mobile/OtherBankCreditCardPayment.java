@@ -140,8 +140,7 @@ public class OtherBankCreditCardPayment extends AppCompatActivity implements Ada
                     drawer.closeDrawers();
                 }
                 else if(id == R.id.profile){
-                    Toast.makeText( OtherBankCreditCardPayment.this,"Profile Selected", Toast.LENGTH_SHORT).show();
-                    //startActivity(new Intent(MainActivity.this, myprofile.class));
+                    startActivity(new Intent(OtherBankCreditCardPayment.this, UserProfile.class));
                     drawer.closeDrawers();
                 }
 
@@ -214,28 +213,47 @@ public class OtherBankCreditCardPayment extends AppCompatActivity implements Ada
         return true;
     }
 
-    // set logout function
+    //for selected items on top bar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if (id == R.id.logout) {
+
+            AlertDialog.Builder alert = new AlertDialog.Builder(OtherBankCreditCardPayment.this);
+
+            alert.setTitle("LOGOUT");
+            alert.setIcon(R.drawable.ic_warning);
+            alert.setMessage("You are about to logout. Please Confirm...");
+            alert.setPositiveButton("Logout", null);
+            alert.setNegativeButton("Cancel", null);
+
+            AlertDialog dialog = alert.create();
+            dialog.show();
+            dialog.getWindow().setBackgroundDrawableResource(R.drawable.alert_design);
+
+
+            // this will change the default behaviour of buttons
+            Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            positiveButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    Intent i = new Intent(OtherBankCreditCardPayment.this, Login.class);
+                    startActivity(i);
+                    finish();
+
+                }
+            });
+
+        }
+
         if (drawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
 
-        switch (item.getItemId()) {
-            case R.id.logout:
-
-                // implement function here
-                //Toast.makeText(this, "Logout selected", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(this, Login.class);
-                startActivity(intent);
-                return true;
-
-
-
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+        return super.onOptionsItemSelected(item);
     }
 
 

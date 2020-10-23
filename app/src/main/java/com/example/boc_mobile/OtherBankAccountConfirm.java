@@ -42,6 +42,7 @@ public class OtherBankAccountConfirm extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_other_bank_account_transaction);
+        getSupportActionBar().setTitle("Transactions");
 
         //details from previous activity
         uname = SaveSharedPreference.getUserName(OtherBankAccountConfirm .this);
@@ -90,7 +91,7 @@ public class OtherBankAccountConfirm extends AppCompatActivity {
                     drawer.closeDrawers();
                 }
                 if(id == R.id.profile){
-                    Toast.makeText(OtherBankAccountConfirm.this,"Profile Selected", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(OtherBankAccountConfirm.this, UserProfile.class));
                     drawer.closeDrawers();
                 }
 

@@ -26,6 +26,14 @@
     <string name="help_btn">Help</string>
     <string name="logout_btn">Logout</string>
 
+    <!-- Contact Us strings -->
+    <string name="contact_us">Bank Of Ceylon - Contact Us</string>
+    <string name="address">No 1, BOC Square, Bank of Ceylon Mawatha, Colombo 01,Sri Lanka.</string>
+    <string name="tel_1">094 11 2446790-811</string>
+    <string name="tel_2">094 11 2338741 / 55</string>
+    <string name="fax">094 11 2321160</string>
+    <string name="email">boc@boc.lk</string>
+
     <string-array name="planets_array">
         <item>Select</item>
         <item>Mercury</item>

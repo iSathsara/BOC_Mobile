@@ -115,8 +115,7 @@ public class billPayment3 extends AppCompatActivity {
                     drawer.closeDrawers();
                 }
                 else if(id == R.id.profile){
-                    Toast.makeText(billPayment3.this,"Profile Selected", Toast.LENGTH_SHORT).show();
-                    //startActivity(new Intent(MainActivity.this, myprofile.class));
+                    startActivity(new Intent(billPayment3.this, UserProfile.class));
                     drawer.closeDrawers();
                 }
 
@@ -199,13 +198,34 @@ public class billPayment3 extends AppCompatActivity {
 
         int id = item.getItemId();
 
-
-
-
-
         if (id == R.id.logout) {
-            startActivity(new Intent(billPayment3.this, Login.class));
-            finish();
+
+            AlertDialog.Builder alert = new AlertDialog.Builder(billPayment3.this);
+
+            alert.setTitle("LOGOUT");
+            alert.setIcon(R.drawable.ic_warning);
+            alert.setMessage("You are about to logout. Please Confirm...");
+            alert.setPositiveButton("Logout", null);
+            alert.setNegativeButton("Cancel", null);
+
+            AlertDialog dialog = alert.create();
+            dialog.show();
+            dialog.getWindow().setBackgroundDrawableResource(R.drawable.alert_design);
+
+
+            // this will change the default behaviour of buttons
+            Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            positiveButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    Intent i = new Intent(billPayment3.this, Login.class);
+                    startActivity(i);
+                    finish();
+
+                }
+            });
+
         }
 
 

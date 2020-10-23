@@ -60,7 +60,7 @@ public class ThirdPartyTransaction extends AppCompatActivity implements AdapterV
 
         // setting up toolbar
         //Toolbar trans_toolbar = findViewById(R.id.toolbar);
-        getSupportActionBar().setTitle("BOC Mobile Banking - Transactions");
+        getSupportActionBar().setTitle("Transactions");
         /**
          * get customer name
          */
@@ -105,12 +105,12 @@ public class ThirdPartyTransaction extends AppCompatActivity implements AdapterV
                 }
 
                 if(id == R.id.profile){
-                    //startActivity(new Intent(MainActivity.this, myprofile.class));
+                    startActivity(new Intent(ThirdPartyTransaction.this, UserProfile.class));
                     drawer.closeDrawers();
                 }
 
                 if(id == R.id.more){
-                    //startActivity(new Intent(MainActivity.this, more.class));
+                    startActivity(new Intent(ThirdPartyTransaction.this, moreActivityFunction.class));
                     drawer.closeDrawers();
                 }
                 return true;
@@ -158,24 +158,47 @@ public class ThirdPartyTransaction extends AppCompatActivity implements AdapterV
         return true;
     }
 
-    // set logout function
+    //for selected items on top bar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if (id == R.id.logout) {
+
+            AlertDialog.Builder alert = new AlertDialog.Builder(ThirdPartyTransaction.this);
+
+            alert.setTitle("LOGOUT");
+            alert.setIcon(R.drawable.ic_warning);
+            alert.setMessage("You are about to logout. Please Confirm...");
+            alert.setPositiveButton("Logout", null);
+            alert.setNegativeButton("Cancel", null);
+
+            AlertDialog dialog = alert.create();
+            dialog.show();
+            dialog.getWindow().setBackgroundDrawableResource(R.drawable.alert_design);
+
+
+            // this will change the default behaviour of buttons
+            Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            positiveButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    Intent i = new Intent(ThirdPartyTransaction.this, Login.class);
+                    startActivity(i);
+                    finish();
+
+                }
+            });
+
+        }
 
         if (drawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
 
-        switch (item.getItemId()) {
-            case R.id.logout:
-
-                Intent intent = new Intent(this, Login.class);
-                startActivity(intent);
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+        return super.onOptionsItemSelected(item);
     }
 
 

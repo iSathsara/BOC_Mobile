@@ -27,6 +27,9 @@
             android:drawablePadding="8dp"
             android:text="My Account"
             android:textColor="#FDD835"
+            android:paddingLeft="50dp"
+            android:paddingRight="60dp"
+            android:gravity="center"
             android:textSize="28sp"
             android:textStyle="bold"
             app:drawableTint="#FDD835"
@@ -59,8 +62,8 @@
                     app:cardCornerRadius="20dp" >
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="322dp"
-                        android:layout_height="191dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
                         android:layout_gravity="center"
                         android:layout_marginTop="8dp"
                         app:layout_constraintTop_toTopOf="parent" >
@@ -95,7 +98,6 @@
                             android:layout_marginEnd="8dp"
                             android:layout_marginRight="8dp"
                             android:gravity="center"
-                            android:text="Kurunegala"
                             android:textColor="#EBE5E5"
                             android:textSize="20sp"
                             app:fontFamily="@font/acme"
@@ -155,7 +157,6 @@
                             android:layout_marginEnd="8dp"
                             android:layout_marginRight="8dp"
                             android:gravity="center"
-                            android:text="LKR 25,000"
                             android:textColor="#EBE5E5"
                             android:textSize="20sp"
                             app:fontFamily="@font/acme"
@@ -173,7 +174,6 @@
                             android:layout_marginEnd="8dp"
                             android:layout_marginRight="8dp"
                             android:gravity="center"
-                            android:text="D.N Gunasekara"
                             android:textColor="#EBE5E5"
                             android:textSize="20sp"
                             app:fontFamily="@font/acme"
@@ -191,7 +191,6 @@
                             android:layout_marginEnd="8dp"
                             android:layout_marginRight="8dp"
                             android:gravity="center"
-                            android:text="24500C"
                             android:textColor="#EBE5E5"
                             android:textSize="20sp"
                             app:fontFamily="@font/acme"
@@ -229,7 +228,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginLeft="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="50dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginBottom="8dp"
@@ -237,7 +236,7 @@
                     android:elevation="10dp"
                     android:foregroundGravity="center"
                     app:cardBackgroundColor="#EDFFFFFF"
-                    app:cardCornerRadius="10dp"
+                    app:cardCornerRadius="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.482"
@@ -253,14 +252,16 @@
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingTop="10dp"
+                            android:paddingTop="20dp"
                             android:paddingBottom="10dp"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="20dp"
                             android:orientation="horizontal">
 
                             <Button
                                 android:id="@+id/loans"
                                 android:layout_width="match_parent"
-                                android:layout_height="100dp"
+                                android:layout_height="80dp"
                                 android:layout_marginStart="8dp"
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginEnd="8dp"
@@ -281,7 +282,7 @@
                             <Button
                                 android:id="@+id/cheques"
                                 android:layout_width="match_parent"
-                                android:layout_height="100dp"
+                                android:layout_height="80dp"
                                 android:layout_marginStart="8dp"
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginEnd="8dp"
@@ -300,60 +301,62 @@
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
-                    <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="10dp"
-                        android:orientation="horizontal">
-
-                        <Button
-                            android:id="@+id/fixedDepo"
+                        <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="match_parent"
-                            android:layout_height="100dp"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginEnd="8dp"
-                            android:layout_marginRight="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:background="@drawable/rounded_button"
-                            android:backgroundTint="#edeeef"
-                            android:drawableTint="#030391"
-                            android:drawableStart="@drawable/ic_lock_black_24dp"
-                            android:drawableLeft="@drawable/ic_lock_black_24dp"
-                            android:drawablePadding="0.0005dp"
-                            android:paddingLeft="5dp"
-                            android:text="Fixed Desposits"
-                            android:layout_weight="1"
-                            tools:text="Fixed Desposits" />
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="10dp"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="20dp"
+                            android:orientation="horizontal">
 
-                        <Button
-                            android:id="@+id/creditCard"
-                            android:layout_width="match_parent"
-                            android:layout_height="100dp"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginEnd="8dp"
-                            android:layout_marginRight="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:background="@drawable/rounded_button"
-                            android:backgroundTint="#edeeef"
-                            android:drawableStart="@drawable/ic_credit_card_black_24dp"
-                            android:drawableLeft="@drawable/ic_credit_card_black_24dp"
-                            android:drawablePadding="-10dp"
-                            android:drawableTint="#f50a0a"
-                            android:focusable="true"
-                            android:onClick="checkCreditCards"
-                            android:paddingLeft="8dp"
-                            android:shadowColor="#8E24AA"
-                            android:text="Credit Cards"
-                            android:textAlignment="center"
-                            android:textSize="15sp"
-                            android:layout_weight="1"
-                            />
+                            <Button
+                                android:id="@+id/fixedDepo"
+                                android:layout_width="match_parent"
+                                android:layout_height="80dp"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginRight="8dp"
+                                android:layout_marginBottom="8dp"
+                                android:background="@drawable/rounded_button"
+                                android:backgroundTint="#edeeef"
+                                android:drawableTint="#030391"
+                                android:drawableStart="@drawable/ic_lock_black_24dp"
+                                android:drawableLeft="@drawable/ic_lock_black_24dp"
+                                android:drawablePadding="0.0005dp"
+                                android:paddingLeft="5dp"
+                                android:text="Fixed Desposits"
+                                android:layout_weight="1"
+                                tools:text="Fixed Desposits" />
 
-                    </androidx.appcompat.widget.LinearLayoutCompat>
+                            <Button
+                                android:id="@+id/creditCard"
+                                android:layout_width="match_parent"
+                                android:layout_height="80dp"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginRight="8dp"
+                                android:layout_marginBottom="8dp"
+                                android:background="@drawable/rounded_button"
+                                android:backgroundTint="#edeeef"
+                                android:drawableStart="@drawable/ic_credit_card_black_24dp"
+                                android:drawableLeft="@drawable/ic_credit_card_black_24dp"
+                                android:drawablePadding="-10dp"
+                                android:drawableTint="#f50a0a"
+                                android:focusable="true"
+                                android:onClick="checkCreditCards"
+                                android:paddingLeft="8dp"
+                                android:shadowColor="#8E24AA"
+                                android:text="Credit Cards"
+                                android:textAlignment="center"
+                                android:textSize="15sp"
+                                android:layout_weight="1"
+                                />
+
+                        </androidx.appcompat.widget.LinearLayoutCompat>
 
 
                     </androidx.appcompat.widget.LinearLayoutCompat>

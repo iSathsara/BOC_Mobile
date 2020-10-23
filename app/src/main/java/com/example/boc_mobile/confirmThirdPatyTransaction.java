@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -45,7 +46,7 @@ public class confirmThirdPatyTransaction extends AppCompatActivity {
 
         // setting up toolbar
         //Toolbar trans_toolbar = findViewById(R.id.toolbar);
-        getSupportActionBar().setTitle("BOC Mobile Banking - Transactions");
+        getSupportActionBar().setTitle("Transactions");
 
 
         //Get data from intent
@@ -95,12 +96,12 @@ public class confirmThirdPatyTransaction extends AppCompatActivity {
                 }
 
                 if(id == R.id.profile){
-                    //startActivity(new Intent(MainActivity.this, myprofile.class));
+                    startActivity(new Intent(confirmThirdPatyTransaction.this, UserProfile.class));
                     drawer.closeDrawers();
                 }
 
                 if(id == R.id.more){
-                    //startActivity(new Intent(MainActivity.this, more.class));
+                    startActivity(new Intent(confirmThirdPatyTransaction.this, moreActivityFunction.class));
                     drawer.closeDrawers();
                 }
                 return true;
@@ -193,26 +194,46 @@ public class confirmThirdPatyTransaction extends AppCompatActivity {
         return true;
     }
 
-    // set logout function
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if (id == R.id.logout) {
+
+            AlertDialog.Builder alert = new AlertDialog.Builder(confirmThirdPatyTransaction.this);
+
+            alert.setTitle("LOGOUT");
+            alert.setIcon(R.drawable.ic_warning);
+            alert.setMessage("You are about to logout. Please Confirm...");
+            alert.setPositiveButton("Logout", null);
+            alert.setNegativeButton("Cancel", null);
+
+            AlertDialog dialog = alert.create();
+            dialog.show();
+            dialog.getWindow().setBackgroundDrawableResource(R.drawable.alert_design);
+
+
+            // this will change the default behaviour of buttons
+            Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            positiveButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    Intent i = new Intent(confirmThirdPatyTransaction.this, Login.class);
+                    startActivity(i);
+                    finish();
+
+                }
+            });
+
+        }
 
         if (drawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
 
-        switch (item.getItemId()) {
-            case R.id.logout:
-
-                // implement function here
-                //Toast.makeText(this, "Logout selected", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(this, Login.class);
-                startActivity(intent);
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+        return super.onOptionsItemSelected(item);
     }
 
 

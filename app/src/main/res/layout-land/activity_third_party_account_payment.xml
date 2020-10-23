@@ -55,14 +55,32 @@
                     android:textStyle="bold"
                     android:paddingLeft="20dp" />
 
-                <Spinner
-                    android:id="@+id/tp_payTo_spinner"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:spinnerMode="dropdown"
-                    android:background="@color/itemColor"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp" />
+                    android:layout_height="wrap_content">
+
+                    <Spinner
+                        android:id="@+id/tp_payTo_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:spinnerMode="dropdown"
+                        android:background="@color/itemColor"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="12dp"
+                        android:paddingRight="10dp"
+                        android:paddingBottom="8dp"
+                        android:src="@drawable/ic_arrow_drop_down_black_24dp" />
+
+                </RelativeLayout>
 
 
                 <TextView
@@ -78,14 +96,34 @@
                     android:paddingLeft="20dp"
                     />
 
-                <Spinner
-                    android:id="@+id/tp_payFrom_spinner"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:spinnerMode="dropdown"
-                    android:background="@color/itemColor"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp" />
+                    android:layout_height="wrap_content">
+
+                    <Spinner
+                        android:id="@+id/tp_payFrom_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:spinnerMode="dropdown"
+                        android:background="@color/itemColor"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="12dp"
+                        android:paddingRight="10dp"
+                        android:paddingBottom="8dp"
+                        android:src="@drawable/ic_arrow_drop_down_black_24dp" />
+
+                </RelativeLayout>
+
+
 
                 <TextView
                     android:id="@+id/obcp_amount_tv"

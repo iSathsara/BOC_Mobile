@@ -110,8 +110,7 @@ public class addBiller2 extends AppCompatActivity {
                     drawer.closeDrawers();
                 }
                 else if(id == R.id.profile){
-                    Toast.makeText(addBiller2.this,"Profile Selected", Toast.LENGTH_SHORT).show();
-                    //startActivity(new Intent(MainActivity.this, myprofile.class));
+                    startActivity(new Intent(addBiller2.this, UserProfile.class));
                     drawer.closeDrawers();
                 }
 
@@ -151,8 +150,32 @@ public class addBiller2 extends AppCompatActivity {
 
 
         if (id == R.id.logout) {
-            startActivity(new Intent(addBiller2.this, Login.class));
-            finish();
+
+            AlertDialog.Builder alert = new AlertDialog.Builder(addBiller2.this);
+
+            alert.setTitle("LOGOUT");
+            alert.setIcon(R.drawable.ic_warning);
+            alert.setMessage("You are about to logout. Please Confirm...");
+            alert.setPositiveButton("Logout", null);
+            alert.setNegativeButton("Cancel", null);
+
+            AlertDialog dialog = alert.create();
+            dialog.show();
+            dialog.getWindow().setBackgroundDrawableResource(R.drawable.alert_design);
+
+
+            // this will change the default behaviour of buttons
+            Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            positiveButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    // redirect to dashboard
+                        Intent i = new Intent(addBiller2.this, Login.class);
+                        startActivity(i);
+
+                }
+            });
         }
 
 

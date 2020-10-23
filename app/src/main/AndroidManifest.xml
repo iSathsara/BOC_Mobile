@@ -9,40 +9,49 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name="com.example.boc_mobile.OtherBankAccountConfirm"></activity>
-        <activity android:name="com.example.boc_mobile.dashboard"
-            android:exported="true"/>
-        <activity android:name="com.example.boc_mobile.addBiller"
-            android:exported="true"/>
-        <activity android:name="com.example.boc_mobile.addBiller2"
-            android:exported="true"/>
-        <activity android:name="com.example.boc_mobile.biller_list"
-            android:exported="true"/>
-        <activity android:name="com.example.boc_mobile.billPayment"
-            android:exported="true"/>
-        <activity android:name="com.example.boc_mobile.billPayment3"
-            android:exported="true"/>
+        <activity android:name=".UserProfile"></activity>
+        <activity android:name=".OtherBankAccountConfirm" />
         <activity
-            android:name="com.example.boc_mobile.OtherBankCreditConfirm"
+            android:name=".dashboard"
             android:exported="true" />
         <activity
-            android:name="com.example.boc_mobile.OtherBankCreditCardPayment"
+            android:name=".addBiller"
             android:exported="true" />
         <activity
-            android:name="com.example.boc_mobile.ThirdPartyTransaction"
-            android:exported="true" />
-
-        <activity
-            android:name="com.example.boc_mobile.confirmThirdPatyTransaction"
+            android:name=".addBiller2"
             android:exported="true" />
         <activity
-            android:name="com.example.boc_mobile.OtherBankAccountPayment"
+            android:name=".biller_list"
             android:exported="true" />
-        <activity android:name=".MainActivity">
-        </activity>
-
-        <activity android:name="com.example.boc_mobile.Login">
+        <activity
+            android:name=".billPayment"
+            android:exported="true" />
+        <activity
+            android:name=".billPayment3"
+            android:exported="true" />
+        <activity
+            android:name=".OtherBankCreditConfirm"
+            android:exported="true" />
+        <activity
+            android:name=".moreActivityFunction"
+            android:exported="true" />
+        <activity
+            android:name=".ContactUs"
+            android:exported="true" />
+        <activity
+            android:name=".OtherBankCreditCardPayment"
+            android:exported="true" />
+        <activity
+            android:name=".ThirdPartyTransaction"
+            android:exported="true" />
+        <activity
+            android:name=".confirmThirdPatyTransaction"
+            android:exported="true" />
+        <activity
+            android:name=".OtherBankAccountPayment"
+            android:exported="true" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

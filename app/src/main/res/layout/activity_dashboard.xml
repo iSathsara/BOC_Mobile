@@ -27,6 +27,9 @@
             android:drawablePadding="8dp"
             android:text="My Account"
             android:textColor="#FDD835"
+            android:paddingLeft="50dp"
+            android:paddingRight="60dp"
+            android:gravity="center"
             android:textSize="28sp"
             android:textStyle="bold"
             app:drawableTint="#FDD835"
@@ -225,7 +228,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginLeft="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="50dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginBottom="8dp"
@@ -233,7 +236,7 @@
                     android:elevation="10dp"
                     android:foregroundGravity="center"
                     app:cardBackgroundColor="#EDFFFFFF"
-                    app:cardCornerRadius="10dp"
+                    app:cardCornerRadius="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.482"
@@ -249,14 +252,16 @@
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingTop="10dp"
+                            android:paddingTop="20dp"
                             android:paddingBottom="10dp"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="20dp"
                             android:orientation="horizontal">
 
                             <Button
                                 android:id="@+id/loans"
                                 android:layout_width="match_parent"
-                                android:layout_height="100dp"
+                                android:layout_height="80dp"
                                 android:layout_marginStart="8dp"
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginEnd="8dp"
@@ -277,7 +282,7 @@
                             <Button
                                 android:id="@+id/cheques"
                                 android:layout_width="match_parent"
-                                android:layout_height="100dp"
+                                android:layout_height="80dp"
                                 android:layout_marginStart="8dp"
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginEnd="8dp"
@@ -300,12 +305,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingBottom="10dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
                         android:orientation="horizontal">
 
                         <Button
                             android:id="@+id/fixedDepo"
                             android:layout_width="match_parent"
-                            android:layout_height="100dp"
+                            android:layout_height="80dp"
                             android:layout_marginStart="8dp"
                             android:layout_marginLeft="8dp"
                             android:layout_marginTop="8dp"
@@ -326,7 +333,7 @@
                         <Button
                             android:id="@+id/creditCard"
                             android:layout_width="match_parent"
-                            android:layout_height="100dp"
+                            android:layout_height="80dp"
                             android:layout_marginStart="8dp"
                             android:layout_marginLeft="8dp"
                             android:layout_marginTop="8dp"

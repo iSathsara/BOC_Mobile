@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -28,6 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class Login extends AppCompatActivity {
 
     private Button loginbtn;
+    private Button faq;
 
     EditText username,password;
     String uname,pwd;
@@ -42,6 +44,7 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         loginbtn = (Button) findViewById(R.id.login);
+        faq = (Button) findViewById(R.id.faq_btn);
         username =  findViewById(R.id.username);
         password = findViewById(R.id.password);
 
@@ -53,7 +56,20 @@ public class Login extends AppCompatActivity {
                 MainMenu();
             }
         });
+        faq.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                faq();
+            }
+        });
 
+    }
+
+    private void faq(){
+        String url = "https://online.boc.lk/terms/boc/FAQ.html";
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
     }
 
     @Override
