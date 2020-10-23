@@ -272,7 +272,7 @@ public class biller_list extends AppCompatActivity {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(biller_list.this,addBiller.class);
+                Intent i = new Intent(biller_list.this,billPayment.class);
                 startActivity(i);
             }
         });
