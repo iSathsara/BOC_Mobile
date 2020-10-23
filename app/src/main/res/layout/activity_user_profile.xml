@@ -28,7 +28,8 @@
             android:textColor="@color/textColor"
             android:paddingLeft="50dp"
             android:paddingRight="60dp"
-            android:gravity="center"
+            android:gravity="left"
+            android:paddingStart="100dp"
             android:textSize="28sp"
             android:textStyle="bold"
             app:drawableTint="@color/textColor"
@@ -229,6 +230,7 @@
                     android:drawableLeft="@drawable/ic_credit_card_black_24dp"
                     android:drawablePadding="8dp"
                     android:text="Transaction History"
+
                     android:textColor="@color/textColor"
                     android:paddingLeft="50dp"
                     android:paddingRight="60dp"
