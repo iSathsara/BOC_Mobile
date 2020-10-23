@@ -124,7 +124,7 @@ public class addBiller extends AppCompatActivity implements AdapterView.OnItemSe
 
 
         /*
-          add items to spinners
+          add items to spinnerss
          */
         ArrayAdapter<CharSequence> billerSequence = ArrayAdapter.createFromResource(this,R.array.biller_category,android.R.layout.simple_spinner_item);
         billerSequence.notifyDataSetChanged();
