@@ -9,6 +9,11 @@
         <item name="android:textColor">@color/textColor</item>
     </style>
 
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
     <style name="NavigationViewStyle">
         <item name="android:textSize">21sp</item> <!-- menu item text size-->
         <item name="android:listPreferredItemHeightSmall">65dp</item><!-- menu item height-->

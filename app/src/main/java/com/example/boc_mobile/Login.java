@@ -72,11 +72,7 @@ public class Login extends AppCompatActivity {
         startActivity(i);
     }
 
-    @Override
-    public void onBackPressed() {
-        //super.onBackPressed();
 
-    }
 
     private void MainMenu(){
 

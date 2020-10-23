@@ -97,7 +97,6 @@
                         android:background="#e8e8e8">
 
 
-
                         <TextView
                             android:id="@+id/textView13"
                             android:layout_width="wrap_content"
@@ -205,10 +204,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="30dp"
                             android:layout_marginStart="8dp"
-                            android:layout_marginLeft="8dp"
                             android:layout_marginTop="8dp"
                             android:layout_marginEnd="8dp"
-                            android:layout_marginRight="8dp"
                             android:layout_marginBottom="8dp"
                             android:text="Select Biller Category"
                             android:textSize="22sp"
@@ -216,16 +213,18 @@
                             app:fontFamily="@font/acme"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.105"
+                            app:layout_constraintHorizontal_bias="0.073"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.219" />
+                            app:layout_constraintVertical_bias="0.217" />
 
                         <Button
                             android:id="@+id/pay"
-                            android:layout_width="144dp"
+                            android:layout_width="190dp"
                             android:layout_height="56dp"
-                            android:layout_marginEnd="111dp"
+                            android:layout_marginStart="280dp"
+                            android:layout_marginTop="618dp"
+                            android:layout_marginEnd="286dp"
                             android:layout_marginBottom="16dp"
                             android:background="@drawable/proceed_button_design"
                             android:clickable="true"
@@ -233,21 +232,10 @@
                             android:text="Next"
                             android:textSize="16sp"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent" />
-
-                        <Button
-                            android:id="@+id/popupCancel"
-                            android:layout_width="144dp"
-                            android:layout_height="56dp"
-                            android:layout_marginStart="90dp"
-                            android:layout_marginLeft="20dp"
-                            android:background="@drawable/proceed_button_design"
-                            android:clickable="true"
-                            android:onClick="CancelButtonclick"
-                            android:text="Cancel"
-                            android:textSize="16sp"
-                            app:layout_constraintBaseline_toBaselineOf="@+id/pay"
-                            app:layout_constraintStart_toStartOf="parent" />
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.384"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
 
                         <RelativeLayout
@@ -356,7 +344,8 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.168">
 
                             <Spinner
                                 android:id="@+id/biller"
@@ -396,21 +385,23 @@
                         <RelativeLayout
                             android:layout_width="304dp"
                             android:layout_height="50dp"
-                            android:layout_marginStart="159dp"
-                            android:layout_marginLeft="22dp"
+                            android:layout_marginStart="220dp"
                             android:layout_marginTop="317dp"
                             android:layout_marginBottom="168dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.648">
 
                             <Spinner
                                 android:id="@+id/type1"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginStart="4dp"
+                                android:layout_width="400dp"
+                                android:layout_height="67dp"
+                                android:layout_alignParentStart="true"
+                                android:layout_marginStart="0dp"
                                 android:layout_marginLeft="4dp"
                                 android:layout_marginTop="4dp"
+
                                 android:layout_marginEnd="4dp"
                                 android:layout_marginRight="4dp"
                                 android:background="@color/itemColor"

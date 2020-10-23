@@ -69,11 +69,11 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/acme"
+                            android:gravity="left"
                             android:text="Account Holder Details"
                             android:textColor="@color/itemColor"
-                            android:gravity="left"
-                            android:textSize="25dp"
-                            android:fontFamily="@font/acme"/>
+                            android:textSize="25dp" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -275,13 +275,14 @@
                                 android:orientation="vertical">
 
                                 <TextView
+                                    android:id="@+id/c1"
                                     android:layout_width="match_parent"
                                     android:layout_height="70dp"
-                                    android:textColor="@color/itemColor"
+                                    android:gravity="center"
                                     android:text="2020-05-20 | I Sathsara - 0321 4584 4554 7884 | Rs.500"
+                                    android:textColor="@color/itemColor"
                                     android:textSize="15dp"
-                                    android:textStyle="bold"
-                                    android:gravity="center"/>
+                                    android:textStyle="bold" />
 
                             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -313,13 +314,14 @@
                                 android:orientation="vertical">
 
                                 <TextView
+                                    android:id="@+id/c2"
                                     android:layout_width="match_parent"
                                     android:layout_height="70dp"
-                                    android:textColor="@color/itemColor"
+                                    android:gravity="center"
                                     android:text="2020-05-20 | I Sathsara - 0854123654 | Rs.1500"
+                                    android:textColor="@color/itemColor"
                                     android:textSize="15dp"
-                                    android:textStyle="bold"
-                                    android:gravity="center"/>
+                                    android:textStyle="bold" />
 
                             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -351,13 +353,14 @@
                                 android:orientation="vertical">
 
                                 <TextView
+                                    android:id="@+id/c3"
                                     android:layout_width="match_parent"
                                     android:layout_height="70dp"
-                                    android:textColor="@color/itemColor"
+                                    android:gravity="center"
                                     android:text="2020-05-20 | I Sathsara - 2532644564 | Rs.200"
+                                    android:textColor="@color/itemColor"
                                     android:textSize="15dp"
-                                    android:textStyle="bold"
-                                    android:gravity="center"/>
+                                    android:textStyle="bold" />
 
                             </androidx.appcompat.widget.LinearLayoutCompat>
 

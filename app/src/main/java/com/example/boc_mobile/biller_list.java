@@ -80,7 +80,7 @@ public class biller_list extends AppCompatActivity {
 
 
         cancel = findViewById(R.id.exit);
-        refresh = findViewById(R.id.refresh);
+
 
         navigationView = findViewById(R.id.drawerNavigation);
         //change the topbar title
