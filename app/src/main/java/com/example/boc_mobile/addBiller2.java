@@ -208,9 +208,9 @@ public void confirmButtonClick(View view){
 
     alert.setTitle("SUCCESSFUL");
     alert.setIcon(R.drawable.transaction_okay);
-    alert.setMessage("The amount is transferred successfully");
+    alert.setMessage("The biller was added successfully.");
     alert.setPositiveButton("DONE", null);
-    alert.setNegativeButton("Another Transaction", null);
+    //alert.setNegativeButton("Another Transaction", null);
 
     AlertDialog dialog = alert.create();
     dialog.show();
@@ -225,7 +225,7 @@ public void confirmButtonClick(View view){
         public void onClick(View view) {
 
 
-                launchDashboard();
+                launchBillPayment();
 
 
         }
@@ -244,7 +244,7 @@ public void confirmButtonClick(View view){
 
 }
 
-    private void launchDashboard(){
+    private void launchBillPayment(){
         Intent intent = new Intent(this, billPayment.class);
         startActivity(intent);
     }
