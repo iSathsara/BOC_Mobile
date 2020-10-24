@@ -214,6 +214,10 @@ public class biller_list extends AppCompatActivity {
 
 
                 }
+                else{
+
+                    progress.dismiss();
+                }
 
             }
 
