@@ -265,6 +265,15 @@ public class billPayment extends AppCompatActivity implements AdapterView.OnItem
                     billerSpinner.setAdapter(biller_list);
                     // biller.setEnabled(true);
                     billerSpinner.setOnItemSelectedListener(billPayment.this);
+                }else{
+                    progress.dismiss();
+                    AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(billPayment.this);
+                    dlgAlert.setMessage("Could not find regitered billers.Please add billers first. ");
+                    dlgAlert.setIcon(R.drawable.empty_warning);
+                    dlgAlert.setTitle("Alert!!");
+                    dlgAlert.setPositiveButton("OK", null);
+                    dlgAlert.setCancelable(true);
+                    dlgAlert.create().show();
                 }
             }
 
