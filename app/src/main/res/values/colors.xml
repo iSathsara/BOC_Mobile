@@ -11,7 +11,7 @@
     <color name="banner_title_bg">#FAE663 </color>
     <color name="cardBack1">#E1E1D8</color>
     <color name="loadingColor">#0ccc53</color>
-
+    <color name="profile_card">#696969 </color>
 
 
 </resources>
