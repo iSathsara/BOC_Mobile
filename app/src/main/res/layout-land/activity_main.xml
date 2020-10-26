@@ -24,6 +24,7 @@
                 android:text="@string/transaction_page_title"
                 android:textStyle="bold"
                 android:textSize="35dp"
+                android:background="@color/banner_title_bg"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:gravity="center"/>
