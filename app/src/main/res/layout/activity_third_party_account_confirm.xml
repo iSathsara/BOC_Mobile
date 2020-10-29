@@ -25,6 +25,7 @@
             android:textAlignment="center"
             android:textColor="@color/textColor"
             android:fontFamily="@font/acme"
+            android:background="@color/banner_title_bg"
             android:paddingBottom="15dp"
             android:paddingTop="15dp"
             android:textSize="25dp"

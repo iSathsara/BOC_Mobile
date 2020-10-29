@@ -23,6 +23,7 @@
             android:layout_height="wrap_content"
             android:text="@string/contact_us"
             android:textAlignment="center"
+            android:background="@color/banner_title_bg"
             android:textColor="@color/textColor"
             android:fontFamily="@font/acme"
             android:paddingBottom="15dp"
